@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,9 @@ public class User {
 
     @Column(name = "email_id", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
 
 }
