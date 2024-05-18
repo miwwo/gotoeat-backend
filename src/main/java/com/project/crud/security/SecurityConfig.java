@@ -26,15 +26,20 @@ import java.util.List;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-    private JwtAuthEntryPoint jwtAuthEntryPoint;
 
-    private CustomUserDetailsService userDetailsService;
+
+    private final JwtAuthEntryPoint jwtAuthEntryPoint;
+
+
+    private final CustomAccessDeniedHandler accessDeniedHandler;
 
 
     @Autowired
-    public SecurityConfig(CustomUserDetailsService userDetailsService, JwtAuthEntryPoint jwtAuthEntryPoint) {
-        this.userDetailsService = userDetailsService;
+    public SecurityConfig(CustomUserDetailsService userDetailsService,
+                          JwtAuthEntryPoint jwtAuthEntryPoint,
+                          CustomAccessDeniedHandler accessDeniedHandler) {
         this.jwtAuthEntryPoint = jwtAuthEntryPoint;
+        this.accessDeniedHandler = accessDeniedHandler;
     }
 
 
@@ -49,16 +54,17 @@ public class SecurityConfig {
                     corsConfiguration.setAllowCredentials(true);
                     return corsConfiguration;
                 }))
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthEntryPoint)
-                .and()
+                .exceptionHandling(exceptions -> exceptions
+                        .accessDeniedHandler(accessDeniedHandler)
+                        .authenticationEntryPoint(jwtAuthEntryPoint))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests()
-                .requestMatchers("/api/auth/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
+                .authorizeRequests(authorizeRequests -> {
+                    authorizeRequests
+                            .requestMatchers("/api/auth/**").permitAll()
+                            .anyRequest().authenticated();
+                })
                 .httpBasic(Customizer.withDefaults());
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
