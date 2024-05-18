@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/recipes")
+@PreAuthorize("hasRole('ADMIN')")
 public class RecipeController {
 
     private RecipeService recipeService;
