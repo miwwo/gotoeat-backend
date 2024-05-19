@@ -19,13 +19,13 @@ public class IngredientQuantity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonBackReference
-    @ManyToOne
+    @JsonBackReference // потому что двунаправленная связь, ставим чтобы не было рекурсии
+    @ManyToOne // необязательно вообще иметь обратную двунаправленную связь
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
 
     @ManyToOne
-    @JoinColumn(name = "ingredient_id", nullable = false)
+    @JoinColumn(name = "ingredient_id", nullable = false) // если у нас объект класса, то используем @JoinColumn
     private Ingredient ingredient;
 
     @Column
