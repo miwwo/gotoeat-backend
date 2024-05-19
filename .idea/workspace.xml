@@ -4,20 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="Update Ingredient changed">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/dto/RecipeDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/IngredientQuantity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/IngredientQuantityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6846fc30-6024-4c70-bc09-fb350d7c52cf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6846fc30-6024-4c70-bc09-fb350d7c52cf.xml" afterDir="false" />
+    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="Recipe V1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/RecipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/security/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/security/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Ingredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Ingredient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/IngredientQuantity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/IngredientQuantity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Recipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/UserEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/RecipeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/RecipeRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/RecipeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/RecipeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/RecipeService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -145,7 +139,7 @@
       <workItem from="1716024317537" duration="12476000" />
       <workItem from="1716075729889" duration="10212000" />
       <workItem from="1716140530549" duration="2883000" />
-      <workItem from="1716143458151" duration="7452000" />
+      <workItem from="1716143458151" duration="12220000" />
     </task>
     <task id="LOCAL-00001" summary="User CRUD changed Recipe">
       <option name="closed" value="true" />
@@ -251,7 +245,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716137639055</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Recipe V1">
+      <option name="closed" value="true" />
+      <created>1716152303891</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1716152303891</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,7 +300,8 @@
     <MESSAGE value="SecurityConstants - JWT_EXPIRATION =  86400000;" />
     <MESSAGE value="Ingredient logic done" />
     <MESSAGE value="Update Ingredient changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Ingredient changed" />
+    <MESSAGE value="Recipe V1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Recipe V1" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

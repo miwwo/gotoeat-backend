@@ -33,15 +33,15 @@ public class RecipeController {
     }
 
     @PostMapping
-    public ResponseEntity<Recipe> createRecipe(@RequestBody RecipeDTO recipeDTO) {
+    public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe recipe) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<UserEntity> owner = userService.getUserByUsername(userDetails.getUsername());
 
-        Recipe createdRecipe = recipeService.createRecipe(recipeDTO, owner.get());
+        Recipe createdRecipe = recipeService.createRecipe(recipe, owner.get());
         if (createdRecipe == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(recipe, HttpStatus.BAD_REQUEST);
         } else {
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(recipe, HttpStatus.CREATED);
         }
 
     }

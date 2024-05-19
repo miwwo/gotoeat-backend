@@ -7,7 +7,7 @@ import com.project.crud.entity.UserEntity;
 import java.util.List;
 
 public interface RecipeService {
-    Recipe createRecipe(RecipeDTO recipeDTO, UserEntity owner);
+    Recipe createRecipe(Recipe recipe, UserEntity owner);
 
     Recipe getRecipeById(Long recipeId);
 

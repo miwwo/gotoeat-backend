@@ -1,5 +1,6 @@
 package com.project.crud.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,11 +34,10 @@ public class Recipe {
     @Column(name = "visible", nullable = false)
     private boolean visible;
 
-    /*@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<IngredientQuantity> ingredientsQuantity = new ArrayList<>();*/
-
-    /*@ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)*/
     @Column(name = "owner_id", nullable = false)
     private Long ownerId;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<IngredientQuantity> ingredientsQuantity = new ArrayList<>();
 }

@@ -1,33 +1,35 @@
 package com.project.crud.entity;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.project.crud.entity.Ingredient;
+import com.project.crud.entity.Recipe;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "ingredient_quantity")
 public class IngredientQuantity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "ingredient_id", nullable = false)
-    private Long ingredientId;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "recipe_id", nullable = false)
+    private Recipe recipe;
 
-    @Column(name = "quantity", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "ingredient_id", nullable = false)
+    private Ingredient ingredient;
+
+    @Column
     private Integer quantity;
 
-    @Column(name = "recipe_id")
-    private Long recipeId;
+    // getters and setters
 }

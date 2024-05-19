@@ -27,26 +27,32 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
-    public Recipe createRecipe(RecipeDTO recipeDTO, UserEntity owner) {
-        Recipe recipeToCreate = new Recipe();
-        recipeToCreate.setName(recipeDTO.getName());
-        recipeToCreate.setDescription(recipeDTO.getDescription());
-        recipeToCreate.setVisible(recipeDTO.isVisible());
-        recipeToCreate.setOwnerId(owner.getId());
+    public Recipe createRecipe(Recipe recipe, UserEntity owner) {
+        // Сохраняем рецепт в базе данных
+        recipe.setOwnerId(owner.getId());
+        Recipe savedRecipe = recipeRepository.save(recipe);
 
-        recipeRepository.save(recipeToCreate);
+        // Для каждого IngredientQuantity в рецепте
+        for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
+            // Устанавливаем ссылку на этот рецепт
+            ingredientQuantity.setRecipe(savedRecipe);
 
-        for (IngredientQuantity iQDTO : recipeDTO.getIngredientQuantity()) {
-            if (ingredientRepository.findById(iQDTO.getIngredientId()).isEmpty())
-                return null;
+            // Проверяем, существует ли ингредиент с данным ID
+            Ingredient ingredient = ingredientRepository.findById(ingredientQuantity.getIngredient().getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Ingredient does not exist with given id: " + ingredientQuantity.getIngredient().getId()));
 
-            IngredientQuantity newIQ = new IngredientQuantity();
-            newIQ.setIngredientId(iQDTO.getIngredientId());
-            newIQ.setQuantity(iQDTO.getQuantity());
-            newIQ.setRecipeId(recipeToCreate.getId());
-            ingredientQuantityRepository.save(newIQ);
+            // Устанавливаем ссылку на ингредиент
+            ingredientQuantity.setIngredient(ingredient);
+
+            // Сохраняем IngredientQuantity в базе данных
+            ingredientQuantityRepository.save(ingredientQuantity);
         }
-        return recipeToCreate;
+
+        // Устанавливаем список IngredientQuantity для рецепта
+        savedRecipe.setIngredientsQuantity(recipe.getIngredientsQuantity());
+
+        // Сохраняем рецепт еще раз и возвращаем его
+        return recipeRepository.save(savedRecipe);
     }
 
     @Override

@@ -22,10 +22,10 @@ public class Ingredient {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String name; //
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Unit unit;
+    private Unit unit; //
 
 }
