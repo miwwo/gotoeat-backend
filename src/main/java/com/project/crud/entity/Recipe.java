@@ -29,7 +29,7 @@ public class Recipe {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "is_public", nullable = false, columnDefinition = "boolean default true")
+    @Column(name = "is_public", nullable = false)
     private boolean isPublic;
 
     @ElementCollection

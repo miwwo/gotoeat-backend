@@ -20,7 +20,7 @@ public class ShoppingList {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "is_active", nullable = false, columnDefinition = "boolean default true")
+    @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
     @ManyToOne(cascade = CascadeType.ALL)

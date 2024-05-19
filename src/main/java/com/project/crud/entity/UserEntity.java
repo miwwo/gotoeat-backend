@@ -33,7 +33,7 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles = new ArrayList<>();
 
-    @Column(name = "is_enabled", nullable = false, columnDefinition = "boolean default true")
+    @Column(name = "is_enabled", nullable = false)
     private boolean enabled;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
