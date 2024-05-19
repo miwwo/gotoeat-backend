@@ -21,12 +21,6 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Recipe>> getAllRecipes() {
-        List<Recipe> recipes = recipeService.getAllRecipes();
-        return new ResponseEntity<>(recipes, HttpStatus.OK);
-    }
-
     @GetMapping("/public_recipes")
     public ResponseEntity<List<Recipe>> getPublicRecipes() {
         List<Recipe> publicRecipes = recipeService.getPublicRecipes();

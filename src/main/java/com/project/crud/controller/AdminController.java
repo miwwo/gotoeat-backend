@@ -1,8 +1,10 @@
 package com.project.crud.controller;
 
 
+import com.project.crud.entity.Recipe;
 import com.project.crud.entity.UserEntity;
 import com.project.crud.service.UserServiceImpl;
+import com.project.crud.service.interfaces.RecipeService;
 import com.project.crud.service.interfaces.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +18,11 @@ import java.util.List;
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
     private final UserService userService;
+    private final RecipeService recipeService;
 
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, RecipeService recipeService) {
         this.userService = userService;
+        this.recipeService = recipeService;
     }
 
     @GetMapping
@@ -62,4 +66,12 @@ public class AdminController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
+    @GetMapping
+    public ResponseEntity<List<Recipe>> getAllRecipes() {
+        List<Recipe> recipes = recipeService.getAllRecipes();
+        return new ResponseEntity<>(recipes, HttpStatus.OK);
+    }
+
 }
