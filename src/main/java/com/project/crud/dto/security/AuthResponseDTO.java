@@ -1,4 +1,4 @@
-package com.project.crud.dto;
+package com.project.crud.dto.security;
 
 import lombok.Data;
 

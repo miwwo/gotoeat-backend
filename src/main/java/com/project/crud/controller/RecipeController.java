@@ -3,6 +3,7 @@ package com.project.crud.controller;
 import com.project.crud.entity.Recipe;
 import com.project.crud.service.interfaces.RecipeService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/recipes")
+@RequiredArgsConstructor
 public class RecipeController {
 
     private final RecipeService recipeService;
-
-    @Autowired
-    public RecipeController(RecipeService recipeService) {
-        this.recipeService = recipeService;
-    }
 
     @GetMapping("/public_recipes")
     public ResponseEntity<List<Recipe>> getPublicRecipes() {
@@ -27,7 +24,7 @@ public class RecipeController {
         return new ResponseEntity<>(publicRecipes, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public ResponseEntity<Recipe> getRecipeById(@PathVariable Long id) {
         Recipe recipe = recipeService.getRecipeById(id);
         if (recipe != null) {
@@ -61,5 +58,5 @@ public class RecipeController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 }

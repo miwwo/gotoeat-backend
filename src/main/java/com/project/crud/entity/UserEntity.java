@@ -33,13 +33,12 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles = new ArrayList<>();
 
-    @Column(nullable = false)
-    private boolean enabled = true;
+    @Column(name = "is_enabled", nullable = false, columnDefinition = "boolean default true")
+    private boolean enabled;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Recipe> recipes;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "shopping_list_id", referencedColumnName = "id")
-    private ShoppingList shoppingList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ShoppingList> shoppingLists;
 }

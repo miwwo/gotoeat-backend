@@ -1,9 +1,9 @@
-package com.project.crud.dto;
+package com.project.crud.dto.security;
 
 import lombok.Data;
 
 @Data
-public class LoginDTO {
+public class SignUpDTO {
     private String username;
     private String password;
 }

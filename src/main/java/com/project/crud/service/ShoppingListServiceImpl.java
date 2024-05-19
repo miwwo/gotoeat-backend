@@ -2,11 +2,13 @@ package com.project.crud.service;
 
 import com.project.crud.entity.ShoppingList;
 import com.project.crud.service.interfaces.ShoppingListService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ShoppingListServiceImpl implements ShoppingListService {
     @Override
     public List<ShoppingList> getAllShoppingLists() {

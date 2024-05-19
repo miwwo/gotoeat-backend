@@ -20,6 +20,13 @@ public class ShoppingList {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "is_active", nullable = false, columnDefinition = "boolean default true")
+    private Boolean isActive;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "shopping_list_recipes",
@@ -28,16 +35,12 @@ public class ShoppingList {
     )
     private List<Recipe> selectedRecipes;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    /*@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "shopping_list_ingredients",
             joinColumns = @JoinColumn(name = "shopping_list_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
-    private List<Ingredient> ingredients;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
+    private List<Ingredient> ingredients;*/
 
 }

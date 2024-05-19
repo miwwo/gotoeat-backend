@@ -10,6 +10,7 @@ import com.project.crud.repository.UserRepository;
 import com.project.crud.service.interfaces.RecipeService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +19,12 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
     private final UserRepository userRepository;
     private final IngredientRepository ingredientRepository;
 
-    @Autowired
-    public RecipeServiceImpl(RecipeRepository recipeRepository, UserRepository userRepository, IngredientRepository ingredientRepository) {
-        this.recipeRepository = recipeRepository;
-        this.userRepository = userRepository;
-        this.ingredientRepository = ingredientRepository;
-    }
     @Override
     @Transactional
     public Recipe createRecipe(Recipe recipe) {
@@ -41,8 +37,8 @@ public class RecipeServiceImpl implements RecipeService {
         recipeToCreate.setPublic(recipe.isPublic());
         recipeToCreate.setOwner(user);
 
-        Map<Ingredient, Double> ingredients = new HashMap<>();
-        for (Map.Entry<Ingredient, Double> entry : recipe.getIngredients().entrySet()) {
+        Map<Ingredient, Integer> ingredients = new HashMap<>();
+        for (Map.Entry<Ingredient, Integer> entry : recipe.getIngredients().entrySet()) {
             Ingredient ingredient = (Ingredient) ingredientRepository.findById(entry.getKey())
                     .orElseThrow(() -> new RuntimeException("Ingredient not found"));
             ingredients.put(ingredient, entry.getValue());

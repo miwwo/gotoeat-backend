@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -24,18 +26,17 @@ import java.util.List;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-    private final CustomUserDetailsService userDetailsService;
-    private final JwtAuthEntryPoint jwtAuthEntryPoint;
-    private final CustomAccessDeniedHandler accessDeniedHandler;
+    private JwtAuthEntryPoint jwtAuthEntryPoint;
+
+    private CustomUserDetailsService userDetailsService;
+
 
     @Autowired
-    public SecurityConfig(CustomUserDetailsService userDetailsService,
-                          JwtAuthEntryPoint jwtAuthEntryPoint,
-                          CustomAccessDeniedHandler accessDeniedHandler) {
+    public SecurityConfig(CustomUserDetailsService userDetailsService, JwtAuthEntryPoint jwtAuthEntryPoint) {
         this.userDetailsService = userDetailsService;
         this.jwtAuthEntryPoint = jwtAuthEntryPoint;
-        this.accessDeniedHandler = accessDeniedHandler;
     }
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -48,17 +49,16 @@ public class SecurityConfig {
                     corsConfiguration.setAllowCredentials(true);
                     return corsConfiguration;
                 }))
-                .exceptionHandling(exceptions -> exceptions
-                        .accessDeniedHandler(accessDeniedHandler)
-                        .authenticationEntryPoint(jwtAuthEntryPoint))
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthEntryPoint)
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests(authorizeRequests -> {
-                    authorizeRequests
-                            .requestMatchers("/auth/**").permitAll()
-                            .anyRequest().authenticated();
-                })
+                .authorizeRequests()
+                .requestMatchers("/auth/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .httpBasic(Customizer.withDefaults());
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

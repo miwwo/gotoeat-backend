@@ -1,8 +1,8 @@
-package com.project.crud.controller;
+package com.project.crud.controller.security;
 
-import com.project.crud.dto.AuthResponseDTO;
-import com.project.crud.dto.LoginDTO;
-import com.project.crud.dto.SignUpDTO;
+import com.project.crud.dto.security.AuthResponseDTO;
+import com.project.crud.dto.security.LoginDTO;
+import com.project.crud.dto.security.SignUpDTO;
 import com.project.crud.entity.Role;
 import com.project.crud.entity.UserEntity;
 import com.project.crud.repository.RoleRepository;

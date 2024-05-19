@@ -23,13 +23,13 @@ public class Recipe {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "is_public", nullable = false)
+    @Column(name = "is_public", nullable = false, columnDefinition = "boolean default true")
     private boolean isPublic;
 
     @ElementCollection
@@ -37,7 +37,7 @@ public class Recipe {
             joinColumns = @JoinColumn(name = "recipe_id"))
     @MapKeyJoinColumn(name = "ingredient_id")
     @Column(name = "quantity")
-    private Map<Ingredient, Double> ingredients = new HashMap<>();
+    private Map<Ingredient, Integer> ingredients = new HashMap<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
