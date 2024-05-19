@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,19 +30,14 @@ public class Recipe {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "is_public", nullable = false)
-    private boolean isPublic;
+    @Column(name = "visible", nullable = false)
+    private boolean visible;
 
-    @ElementCollection
-    @CollectionTable(name = "recipe_ingredients",
-            joinColumns = @JoinColumn(name = "recipe_id"))
-    @MapKeyJoinColumn(name = "ingredient_id")
-    @Column(name = "quantity")
-    private Map<Ingredient, Integer> ingredients = new HashMap<>();
+    /*@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<IngredientQuantity> ingredientsQuantity = new ArrayList<>();*/
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity owner;
-
-
+    /*@ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)*/
+    @Column(name = "owner_id", nullable = false)
+    private Long ownerId;
 }

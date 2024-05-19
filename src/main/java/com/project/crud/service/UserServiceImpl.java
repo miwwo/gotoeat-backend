@@ -3,6 +3,7 @@ package com.project.crud.service;
 import com.project.crud.entity.Recipe;
 import com.project.crud.entity.ShoppingList;
 import com.project.crud.entity.UserEntity;
+import com.project.crud.repository.UserRepository;
 import com.project.crud.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
 
     @Override
     public UserEntity createUser(UserEntity userEntity) {
@@ -26,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserEntity> getUserByUsername(String username) {
-        return Optional.empty();
+        return userRepository.findByUsername(username);
     }
 
     @Override

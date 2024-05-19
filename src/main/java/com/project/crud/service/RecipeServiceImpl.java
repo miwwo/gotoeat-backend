@@ -1,22 +1,21 @@
 package com.project.crud.service;
 
+import com.project.crud.dto.RecipeDTO;
 import com.project.crud.entity.Ingredient;
+import com.project.crud.entity.IngredientQuantity;
 import com.project.crud.entity.Recipe;
 import com.project.crud.entity.UserEntity;
 import com.project.crud.exception.ResourceNotFoundException;
+import com.project.crud.repository.IngredientQuantityRepository;
 import com.project.crud.repository.IngredientRepository;
 import com.project.crud.repository.RecipeRepository;
 import com.project.crud.repository.UserRepository;
 import com.project.crud.service.interfaces.RecipeService;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -24,28 +23,30 @@ public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
     private final UserRepository userRepository;
     private final IngredientRepository ingredientRepository;
+    private final IngredientQuantityRepository ingredientQuantityRepository;
 
     @Override
     @Transactional
-    public Recipe createRecipe(Recipe recipe) {
-        UserEntity user = userRepository.findById(recipe.getOwner().getId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
+    public Recipe createRecipe(RecipeDTO recipeDTO, UserEntity owner) {
         Recipe recipeToCreate = new Recipe();
-        recipeToCreate.setName(recipe.getName());
-        recipeToCreate.setDescription(recipe.getDescription());
-        recipeToCreate.setPublic(recipe.isPublic());
-        recipeToCreate.setOwner(user);
+        recipeToCreate.setName(recipeDTO.getName());
+        recipeToCreate.setDescription(recipeDTO.getDescription());
+        recipeToCreate.setVisible(recipeDTO.isVisible());
+        recipeToCreate.setOwnerId(owner.getId());
 
-        Map<Ingredient, Integer> ingredients = new HashMap<>();
-        for (Map.Entry<Ingredient, Integer> entry : recipe.getIngredients().entrySet()) {
-            Ingredient ingredient = (Ingredient) ingredientRepository.findById(entry.getKey())
-                    .orElseThrow(() -> new RuntimeException("Ingredient not found"));
-            ingredients.put(ingredient, entry.getValue());
+        recipeRepository.save(recipeToCreate);
+
+        for (IngredientQuantity iQDTO : recipeDTO.getIngredientQuantity()) {
+            if (ingredientRepository.findById(iQDTO.getIngredientId()).isEmpty())
+                return null;
+
+            IngredientQuantity newIQ = new IngredientQuantity();
+            newIQ.setIngredientId(iQDTO.getIngredientId());
+            newIQ.setQuantity(iQDTO.getQuantity());
+            newIQ.setRecipeId(recipeToCreate.getId());
+            ingredientQuantityRepository.save(newIQ);
         }
-        recipe.setIngredients(ingredients);
-
-        return recipeRepository.save(recipe);
+        return recipeToCreate;
     }
 
     @Override
@@ -80,7 +81,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public List<Recipe> getPublicRecipes() {
-        return recipeRepository.findAllByIsPublic(true);
+    public List<Recipe> getVisibleRecipes() {
+        return recipeRepository.findAllByVisible(true);
     }
 }

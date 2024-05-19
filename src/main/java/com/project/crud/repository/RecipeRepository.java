@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
-    List<Recipe> findByOwner(UserEntity owner);
-    List<Recipe> findByNameContainingIgnoreCase(String name);
+    List<Recipe> findAllByVisible(Boolean b);
 
-    List<Recipe> findAllByIsPublic(boolean b);
 }

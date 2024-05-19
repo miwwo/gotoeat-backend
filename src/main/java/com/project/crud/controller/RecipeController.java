@@ -1,15 +1,22 @@
 package com.project.crud.controller;
 
+import com.project.crud.dto.RecipeDTO;
 import com.project.crud.entity.Recipe;
+import com.project.crud.entity.UserEntity;
 import com.project.crud.service.interfaces.RecipeService;
+import com.project.crud.service.interfaces.UserService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/recipes")
@@ -17,15 +24,32 @@ import java.util.List;
 public class RecipeController {
 
     private final RecipeService recipeService;
+    private final UserService userService;
 
-    @GetMapping("/public_recipes")
-    public ResponseEntity<List<Recipe>> getPublicRecipes() {
-        List<Recipe> publicRecipes = recipeService.getPublicRecipes();
+    @GetMapping("/public")
+    public ResponseEntity<List<Recipe>> getVisibleRecipes() {
+        List<Recipe> publicRecipes = recipeService.getVisibleRecipes();
         return new ResponseEntity<>(publicRecipes, HttpStatus.OK);
     }
 
+    @PostMapping
+    public ResponseEntity<Recipe> createRecipe(@RequestBody RecipeDTO recipeDTO) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<UserEntity> owner = userService.getUserByUsername(userDetails.getUsername());
+
+        Recipe createdRecipe = recipeService.createRecipe(recipeDTO, owner.get());
+        if (createdRecipe == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+
+    }
+
+
+
     /*@GetMapping("/{id}")
-    public ResponseEntity<Recipe> getRecipeById(@PathVariable Long id) {
+    public ResponseEntity<Recipe> getPublicRecipeById(@PathVariable Long id) {
         Recipe recipe = recipeService.getRecipeById(id);
         if (recipe != null) {
             return new ResponseEntity<>(recipe, HttpStatus.OK);
@@ -34,11 +58,7 @@ public class RecipeController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe recipe) {
-        Recipe createdRecipe = recipeService.createRecipe(recipe);
-        return new ResponseEntity<>(createdRecipe, HttpStatus.CREATED);
-    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Recipe> updateRecipe(@PathVariable Long id, @RequestBody Recipe recipe) {

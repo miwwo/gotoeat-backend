@@ -36,8 +36,8 @@ public class UserEntity {
     @Column(name = "is_enabled", nullable = false)
     private boolean enabled;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Recipe> recipes;
+    /*@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Recipe> recipes;*/
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ShoppingList> shoppingLists;

@@ -1,11 +1,13 @@
 package com.project.crud.service.interfaces;
 
+import com.project.crud.dto.RecipeDTO;
 import com.project.crud.entity.Recipe;
+import com.project.crud.entity.UserEntity;
 
 import java.util.List;
 
 public interface RecipeService {
-    Recipe createRecipe(Recipe recipe);
+    Recipe createRecipe(RecipeDTO recipeDTO, UserEntity owner);
 
     Recipe getRecipeById(Long recipeId);
 
@@ -15,5 +17,5 @@ public interface RecipeService {
 
     boolean deleteRecipe(Long recipeId);
 
-    List<Recipe> getPublicRecipes();
+    List<Recipe> getVisibleRecipes();
 }
