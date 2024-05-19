@@ -12,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class IngredientServiceImpl implements IngredientService {
     private final IngredientRepository ingredientRepository;
+
     @Override
     public List<Ingredient> getAllIngredients() {
         return ingredientRepository.findAll();
@@ -21,6 +22,7 @@ public class IngredientServiceImpl implements IngredientService {
     public Ingredient createIngredient(Ingredient ingredient) {
         return ingredientRepository.save(ingredient);
     }
+
     @Override
     public Ingredient getIngredientById(Long id) {
         return ingredientRepository.findById(id).orElse(null);
@@ -29,9 +31,15 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Ingredient updateIngredient(Long id, Ingredient ingredient) {
-        if(ingredientRepository.existsById(id)){
-            ingredient.setId(id);
-            return ingredientRepository.save(ingredient);
+        Ingredient ingredientToUpdate = ingredientRepository.findById(id).orElse(null);
+        if (ingredientToUpdate != null) {
+            if (ingredient.getName() != null) {
+                ingredientToUpdate.setName(ingredient.getName());
+            }
+            if (ingredient.getUnit() != null) {
+                ingredientToUpdate.setUnit(ingredient.getUnit());
+            }
+            return ingredientRepository.save(ingredientToUpdate);
         }
         return null;
     }
@@ -40,7 +48,7 @@ public class IngredientServiceImpl implements IngredientService {
     public boolean deleteIngredient(Long id) {
         boolean existed = ingredientRepository.existsById(id);
         boolean deleted = false;
-        if(existed){
+        if (existed) {
             ingredientRepository.deleteById(id);
             deleted = true;
             return deleted;
