@@ -27,8 +27,4 @@ public class Ingredient {
     @Column(nullable = false)
     private Unit unit;
 
-
-    @ManyToMany(mappedBy = "ingredients")
-    private List<Recipe> recipes;
-
 }

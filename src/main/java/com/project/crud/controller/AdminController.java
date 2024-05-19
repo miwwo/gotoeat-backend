@@ -25,7 +25,7 @@ public class AdminController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping
+    @GetMapping("/users")
     public ResponseEntity<List<UserEntity>> getAllUsers() {
         List<UserEntity> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -68,7 +68,7 @@ public class AdminController {
     }
 
 
-    @GetMapping
+    @GetMapping("/recipes")
     public ResponseEntity<List<Recipe>> getAllRecipes() {
         List<Recipe> recipes = recipeService.getAllRecipes();
         return new ResponseEntity<>(recipes, HttpStatus.OK);
