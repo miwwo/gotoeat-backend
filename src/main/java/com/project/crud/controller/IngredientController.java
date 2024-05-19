@@ -20,11 +20,47 @@ public class IngredientController {
 
     private final IngredientService ingredientService;
 
-    /*@GetMapping
+    @GetMapping
     public ResponseEntity<List<Ingredient>> getAllIngredients() {
         List<Ingredient> ingredients = ingredientService.getAllIngredients();
         return new ResponseEntity<>(ingredients, HttpStatus.OK);
-    }*/
+    }
+
+    @PostMapping
+    public ResponseEntity<Ingredient> createIngredient(@RequestBody Ingredient ingredient) {
+        Ingredient createdIngredient = ingredientService.createIngredient(ingredient);
+        return new ResponseEntity<>(createdIngredient, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Ingredient> getIngredientById(@PathVariable Long id) {
+        Ingredient ingredient = ingredientService.getIngredientById(id);
+        if (ingredient != null) {
+            return new ResponseEntity<>(ingredient, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteIngredient(@PathVariable Long id) {
+        boolean deleted = ingredientService.deleteIngredient(id);
+        if (deleted) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Ingredient> updateIngredient(@PathVariable Long id, @RequestBody Ingredient ingredient) {
+        Ingredient updatedIngredient = ingredientService.updateIngredient(id, ingredient);
+        if (updatedIngredient != null) {
+            return new ResponseEntity<>(updatedIngredient, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     /*@GetMapping("/ingredients_suggestions")
     public ResponseEntity<List<Ingredient>> suggestIngredientsByPrefix(@RequestParam String prefix) {
@@ -36,39 +72,4 @@ public class IngredientController {
         }
     }*/
 
-    /*@GetMapping("/{id}")
-    public ResponseEntity<Ingredient> getIngredientById(@PathVariable Long id) {
-        Ingredient ingredient = ingredientService.getIngredientById(id);
-        if (ingredient != null) {
-            return new ResponseEntity<>(ingredient, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }*/
-
-    /*@PostMapping
-    public ResponseEntity<Ingredient> createIngredient(@RequestBody Ingredient ingredient) {
-        Ingredient createdIngredient = ingredientService.createIngredient(ingredient);
-        return new ResponseEntity<>(createdIngredient, HttpStatus.CREATED);
-    }*/
-
-    /*@PutMapping("/{id}")
-    public ResponseEntity<Ingredient> updateIngredient(@PathVariable Long id, @RequestBody Ingredient ingredient) {
-        Ingredient updatedIngredient = ingredientService.updateIngredient(id, ingredient);
-        if (updatedIngredient != null) {
-            return new ResponseEntity<>(updatedIngredient, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }*/
-
-    /*@DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteIngredient(@PathVariable Long id) {
-        boolean deleted = ingredientService.deleteIngredient(id);
-        if (deleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }*/
 }

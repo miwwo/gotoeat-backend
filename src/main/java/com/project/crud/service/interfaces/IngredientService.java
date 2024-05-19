@@ -15,5 +15,5 @@ public interface IngredientService {
 
     boolean deleteIngredient(Long id);
 
-    List<Ingredient> suggestIngredientsByPrefix(String prefix);
+    /*List<Ingredient> suggestIngredientsByPrefix(String prefix);*/
 }
