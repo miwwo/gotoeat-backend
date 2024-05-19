@@ -4,10 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="Role access to endpoints fix">
+    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="Added customdeniedaccess handler but it doesnt work for some reason...&#10;!!!!!!!!!!!!!!!!this commit is the start!">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/IngredientController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/ShoppingListController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Ingredient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/ShoppingList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/enums/Unit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/IngredientRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/ShoppintListRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/IngredientServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/ShoppingListServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/IngredientService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/ShoppingListService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ed37e053-e9de-44fc-a051-186efd31d93d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ed37e053-e9de-44fc-a051-186efd31d93d.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/security/JwtAuthEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/security/JwtAuthEntryPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/RecipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/dto/RecipeDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Recipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/mapper/RecipeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/mapper/RecipeMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/RecipeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/RecipeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/RecipeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/RecipeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/RecipeServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +66,9 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2g4i5XkZjKpWiH5P3Z5ncUvJQWC" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -115,7 +141,8 @@
       <workItem from="1715779054406" duration="15940000" />
       <workItem from="1715861725045" duration="5700000" />
       <workItem from="1715981006418" duration="1140000" />
-      <workItem from="1716024317537" duration="10279000" />
+      <workItem from="1716024317537" duration="12476000" />
+      <workItem from="1716075729889" duration="6608000" />
     </task>
     <task id="LOCAL-00001" summary="User CRUD changed Recipe">
       <option name="closed" value="true" />
@@ -157,7 +184,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716041438959</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added customdeniedaccess handler but it doesnt work for some reason...&#10;!!!!!!!!!!!!!!!!this commit is the start!">
+      <option name="closed" value="true" />
+      <created>1716073295883</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1716073295883</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,6 +231,7 @@
     <MESSAGE value="added csrf stuff......" />
     <MESSAGE value="JWT Provider @Autowired fix" />
     <MESSAGE value="Role access to endpoints fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Role access to endpoints fix" />
+    <MESSAGE value="Added customdeniedaccess handler but it doesnt work for some reason...&#10;!!!!!!!!!!!!!!!!this commit is the start!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added customdeniedaccess handler but it doesnt work for some reason...&#10;!!!!!!!!!!!!!!!!this commit is the start!" />
   </component>
 </project>

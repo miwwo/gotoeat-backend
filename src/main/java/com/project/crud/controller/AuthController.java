@@ -22,7 +22,7 @@ import java.util.Collections;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
     private AuthenticationManager authenticationManager;
     private UserRepository userRepository;

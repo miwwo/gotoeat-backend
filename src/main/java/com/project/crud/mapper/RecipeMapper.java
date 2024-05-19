@@ -1,6 +1,5 @@
 package com.project.crud.mapper;
 
-import com.project.crud.dto.RecipeDTO;
 import com.project.crud.entity.Recipe;
 
 public class RecipeMapper {

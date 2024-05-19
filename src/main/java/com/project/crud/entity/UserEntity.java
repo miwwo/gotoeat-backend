@@ -27,9 +27,19 @@ public class UserEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(nullable = false)
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles = new ArrayList<>();
 
+    @Column(nullable = false)
+    private boolean enabled = true;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Recipe> recipes;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shopping_list_id", referencedColumnName = "id")
+    private ShoppingList shoppingList;
 }

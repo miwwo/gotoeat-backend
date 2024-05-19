@@ -1,52 +1,71 @@
 package com.project.crud.controller;
 
-import com.project.crud.dto.RecipeDTO;
-import com.project.crud.service.RecipeService;
+import com.project.crud.entity.Recipe;
+import com.project.crud.service.interfaces.RecipeService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
-@AllArgsConstructor
 @RestController
-@RequestMapping("/api/recipes")
-@PreAuthorize("hasRole('ADMIN')")
+@RequestMapping("/recipes")
 public class RecipeController {
 
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
 
-    @PostMapping
-    public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeDTO recipeDTO) {
-        RecipeDTO savedRecipe = recipeService.createRecipe(recipeDTO);
-        return new ResponseEntity<>(savedRecipe, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<RecipeDTO> getRecipeById(@PathVariable("id") Long recipeId) {
-        RecipeDTO recipeDTO = recipeService.getRecipeById(recipeId);
-        return new ResponseEntity<>(recipeDTO, HttpStatus.OK);
+    @Autowired
+    public RecipeController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @GetMapping
-    public ResponseEntity<List<RecipeDTO>> getAllRecipes() {
-        List<RecipeDTO> recipes = recipeService.getAllRecipes();
+    public ResponseEntity<List<Recipe>> getAllRecipes() {
+        List<Recipe> recipes = recipeService.getAllRecipes();
         return new ResponseEntity<>(recipes, HttpStatus.OK);
     }
 
+    @GetMapping("/public_recipes")
+    public ResponseEntity<List<Recipe>> getPublicRecipes() {
+        List<Recipe> publicRecipes = recipeService.getPublicRecipes();
+        return new ResponseEntity<>(publicRecipes, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Recipe> getRecipeById(@PathVariable Long id) {
+        Recipe recipe = recipeService.getRecipeById(id);
+        if (recipe != null) {
+            return new ResponseEntity<>(recipe, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe recipe) {
+        Recipe createdRecipe = recipeService.createRecipe(recipe);
+        return new ResponseEntity<>(createdRecipe, HttpStatus.CREATED);
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable("id") Long recipeId,
-                                              @RequestBody RecipeDTO updatedRecipeDTO) {
-        RecipeDTO updatedRecipe = recipeService.updateRecipe(recipeId, updatedRecipeDTO);
-        return new ResponseEntity<>(updatedRecipe, HttpStatus.OK);
+    public ResponseEntity<Recipe> updateRecipe(@PathVariable Long id, @RequestBody Recipe recipe) {
+        Recipe updatedRecipe = recipeService.updateRecipe(id, recipe);
+        if (updatedRecipe != null) {
+            return new ResponseEntity<>(updatedRecipe, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteRecipe(@PathVariable("id") Long recipeId) {
-        recipeService.deleteRecipe(recipeId);
-        return ResponseEntity.ok("Recipe is deleted successfully!");
+    public ResponseEntity<Void> deleteRecipe(@PathVariable Long id) {
+        boolean deleted = recipeService.deleteRecipe(id);
+        if (deleted) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
