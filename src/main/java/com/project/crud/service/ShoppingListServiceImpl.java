@@ -1,6 +1,7 @@
 package com.project.crud.service;
 
 import com.project.crud.entity.ShoppingList;
+import com.project.crud.entity.UserEntity;
 import com.project.crud.service.interfaces.ShoppingListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,7 @@ public class ShoppingListServiceImpl implements ShoppingListService {
     }
 
     @Override
-    public ShoppingList createShoppingList(ShoppingList shoppingList) {
-
+    public ShoppingList createShoppingList(ShoppingList shoppingList, UserEntity owner) {
         return null;
     }
 
