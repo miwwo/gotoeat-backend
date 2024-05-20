@@ -41,4 +41,12 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ShoppingList> shoppingLists;
+
+    public boolean isAdmin() {
+        return roles.stream().anyMatch(role -> role.getName().equalsIgnoreCase("ADMIN"));
+    }
+
+    public boolean isUser() {
+        return roles.stream().anyMatch(role -> role.getName().equalsIgnoreCase("USER"));
+    }
 }

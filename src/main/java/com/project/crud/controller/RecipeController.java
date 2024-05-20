@@ -88,7 +88,8 @@ public class RecipeController {
         if(recipeService.getRecipeById(id) == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
-            if (owner.get().getId() != recipeService.getRecipeById(id).getOwnerId())
+            if (!owner.get().isAdmin() &&
+                    owner.get().getId() != recipeService.getRecipeById(id).getOwnerId())
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
             recipeService.deleteRecipe(id);
