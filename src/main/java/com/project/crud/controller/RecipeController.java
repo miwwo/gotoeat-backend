@@ -53,15 +53,7 @@ public class RecipeController {
         }
     }
 
-    /*@GetMapping("/{id}")
-    public ResponseEntity<Recipe> getRecipeById(@PathVariable Long id) {
-        Recipe recipe = recipeService.getRecipeById(id);
-        if (recipe != null) {
-            return new ResponseEntity<>(recipe, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }*/
+
 
 
 
