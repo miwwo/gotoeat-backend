@@ -8,6 +8,7 @@ import com.project.crud.entity.UserEntity;
 import com.project.crud.repository.RoleRepository;
 import com.project.crud.repository.UserRepository;
 import com.project.crud.security.JwtProvider;
+import com.project.crud.service.interfaces.ShoppingListService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,17 +29,19 @@ public class AuthController {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
-
     private JwtProvider jwtProvider;
+    private ShoppingListService shoppingListService;
 
     public AuthController(AuthenticationManager authenticationManager,
                           UserRepository userRepository, RoleRepository roleRepository,
-                          PasswordEncoder passwordEncoder, JwtProvider jwtProvider) {
+                          PasswordEncoder passwordEncoder, JwtProvider jwtProvider,
+                          ShoppingListService shoppingListService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtProvider = jwtProvider;
+        this.shoppingListService = shoppingListService;
     }
 
     @PostMapping("/signup")
@@ -52,10 +55,13 @@ public class AuthController {
         user.setPassword(passwordEncoder.encode(signUpDTO.getPassword()));
         user.setEnabled(true);
 
-        Role roles = roleRepository.findByName("USER").get();
+        Role roles = roleRepository.findByName("ADMIN").get();
         user.setRoles(Collections.singletonList(roles));
 
         userRepository.save(user);
+
+        shoppingListService.initializeShoppingList(user);
+
         return ResponseEntity.ok("User registered successfully!");
     }
 

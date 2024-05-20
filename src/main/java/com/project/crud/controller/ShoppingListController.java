@@ -1,21 +1,54 @@
 package com.project.crud.controller;
 
 import com.project.crud.entity.ShoppingList;
+import com.project.crud.entity.UserEntity;
 import com.project.crud.service.interfaces.ShoppingListService;
+import com.project.crud.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/shopping-lists")
+@RequestMapping("/shopping-list")
 @RequiredArgsConstructor
 public class ShoppingListController {
 
     private final ShoppingListService shoppingListService;
+    private final UserService userService;
+
+    @GetMapping
+    public ResponseEntity<ShoppingList> getActiveShoppingList() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<UserEntity> userOpt = userService.getUserByUsername(userDetails.getUsername());
+
+        ShoppingList shoppingList = shoppingListService.getActiveShoppingList(userOpt.get());
+
+        if (shoppingList != null) {
+            return new ResponseEntity<>(shoppingList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // метод добавления продукта в список покупок
+    @PostMapping("/add-recipe/{recipeId}")
+    public ResponseEntity<ShoppingList> addRecipeToShoppingList(@PathVariable Long recipeId) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<UserEntity> userOpt = userService.getUserByUsername(userDetails.getUsername());
+
+        ShoppingList shoppingList = shoppingListService.addRecipeToShoppingList(userOpt.get(), recipeId);
+
+        if (shoppingList != null) {
+            return new ResponseEntity<>(shoppingList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     /*@GetMapping("/{id}")
     public ResponseEntity<ShoppingList> getShoppingListById(@PathVariable Long id) {

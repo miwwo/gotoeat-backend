@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="relocated a method">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6846fc30-6024-4c70-bc09-fb350d7c52cf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6846fc30-6024-4c70-bc09-fb350d7c52cf.xml" afterDir="false" />
+    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="JWT теперь передает роли">
+      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/ShoppingListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/ShoppingListController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/security/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/security/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/mapper/RecipeMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/security/JwtProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/security/JwtProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/ShoppingList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/ShoppingList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/ShoppingListRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/ShoppingListRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/ShoppingListServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/ShoppingListServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/ShoppingListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/ShoppingListService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +143,7 @@
       <workItem from="1716140530549" duration="2883000" />
       <workItem from="1716143458151" duration="13841000" />
       <workItem from="1716201337458" duration="14285000" />
-      <workItem from="1716226522034" duration="2061000" />
+      <workItem from="1716226522034" duration="6107000" />
     </task>
     <task id="LOCAL-00001" summary="User CRUD changed Recipe">
       <option name="closed" value="true" />
@@ -310,7 +313,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716218453206</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="JWT теперь передает роли">
+      <option name="closed" value="true" />
+      <created>1716230356237</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1716230356237</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -365,7 +376,8 @@
     <MESSAGE value="Добавили ADMIN возможность удалять чужие рецепты" />
     <MESSAGE value="Добавили логику пустого Description null при создании рецепта" />
     <MESSAGE value="relocated a method" />
-    <option name="LAST_COMMIT_MESSAGE" value="relocated a method" />
+    <MESSAGE value="JWT теперь передает роли" />
+    <option name="LAST_COMMIT_MESSAGE" value="JWT теперь передает роли" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -35,7 +36,7 @@ public class ShoppingList {
             joinColumns = @JoinColumn(name = "shopping_list_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_id")
     )
-    private List<Recipe> selectedRecipes;
+    private List<Recipe> selectedRecipes = new ArrayList<>();
 
     /*@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

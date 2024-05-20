@@ -6,6 +6,13 @@ import com.project.crud.entity.UserEntity;
 import java.util.List;
 
 public interface ShoppingListService {
+
+    void initializeShoppingList(UserEntity user);
+
+    ShoppingList getActiveShoppingList(UserEntity user);
+
+    ShoppingList addRecipeToShoppingList(UserEntity userEntity, Long recipeId);
+
     List<ShoppingList> getAllShoppingLists();
 
     ShoppingList getShoppingListById(Long id);
