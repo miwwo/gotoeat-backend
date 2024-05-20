@@ -1,5 +1,6 @@
 package com.project.crud.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,9 +37,7 @@ public class UserEntity {
     @Column(name = "is_enabled", nullable = false)
     private boolean enabled;
 
-    /*@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Recipe> recipes;*/
-
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ShoppingList> shoppingLists;
 

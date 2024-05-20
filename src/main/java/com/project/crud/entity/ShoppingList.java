@@ -1,5 +1,6 @@
 package com.project.crud.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,9 +21,10 @@ public class ShoppingList {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
+    @Column(name = "active", nullable = false)
+    private Boolean active;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
