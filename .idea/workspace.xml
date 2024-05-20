@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="write lutie comments">
+    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="Recipe.java - removed orphanRemoval=true над листом ingredientQuantity, так как выкидывало ошибку из-за реализации метода updateRecipe&#10;////&#10;Реализованы методы для рецепта, кроме удаления">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/RecipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/security/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/security/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/dto/RecipeDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Ingredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Ingredient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Recipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/IngredientQuantityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/IngredientQuantityRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/RecipeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/RecipeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/RecipeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/RecipeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/RecipeService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +139,7 @@
       <workItem from="1716075729889" duration="10212000" />
       <workItem from="1716140530549" duration="2883000" />
       <workItem from="1716143458151" duration="13841000" />
-      <workItem from="1716201337458" duration="3961000" />
+      <workItem from="1716201337458" duration="7752000" />
     </task>
     <task id="LOCAL-00001" summary="User CRUD changed Recipe">
       <option name="closed" value="true" />
@@ -272,7 +269,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716157137950</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Recipe.java - removed orphanRemoval=true над листом ingredientQuantity, так как выкидывало ошибку из-за реализации метода updateRecipe&#10;////&#10;Реализованы методы для рецепта, кроме удаления">
+      <option name="closed" value="true" />
+      <created>1716205380449</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1716205380449</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,7 +327,8 @@
     <MESSAGE value="Recipe V1" />
     <MESSAGE value="Recipe V2 WIN" />
     <MESSAGE value="write lutie comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="write lutie comments" />
+    <MESSAGE value="Recipe.java - removed orphanRemoval=true над листом ingredientQuantity, так как выкидывало ошибку из-за реализации метода updateRecipe&#10;////&#10;Реализованы методы для рецепта, кроме удаления" />
+    <option name="LAST_COMMIT_MESSAGE" value="Recipe.java - removed orphanRemoval=true над листом ingredientQuantity, так как выкидывало ошибку из-за реализации метода updateRecipe&#10;////&#10;Реализованы методы для рецепта, кроме удаления" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

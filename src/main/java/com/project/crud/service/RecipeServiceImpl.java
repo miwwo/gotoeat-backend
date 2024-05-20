@@ -32,24 +32,26 @@ public class RecipeServiceImpl implements RecipeService {
         Recipe savedRecipe = recipeRepository.save(recipe);
 
         // Для каждого IngredientQuantity в рецепте
-        for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
-            // Устанавливаем ссылку на этот рецепт
-            ingredientQuantity.setRecipe(savedRecipe);
+        if (recipe.getIngredientsQuantity() != null) {
+            for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
+                // Устанавливаем ссылку на этот рецепт
+                ingredientQuantity.setRecipe(savedRecipe);
 
-            // Проверяем, существует ли ингредиент с данным ID
-            Ingredient ingredient = ingredientRepository.findById(ingredientQuantity.getIngredient().getId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Ingredient does not exist with given id: " + ingredientQuantity.getIngredient().getId()));
-            if (ingredient == null)
-                return null;
-            // Устанавливаем ссылку на ингредиент
-            ingredientQuantity.setIngredient(ingredient);
+                // Проверяем, существует ли ингредиент с данным ID
+                Ingredient ingredient = ingredientRepository.findById(ingredientQuantity.getIngredient().getId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Ingredient does not exist with given id: " + ingredientQuantity.getIngredient().getId()));
+                if (ingredient == null)
+                    return null;
+                // Устанавливаем ссылку на ингредиент
+                ingredientQuantity.setIngredient(ingredient);
 
-            // Сохраняем IngredientQuantity в базе данных
-            ingredientQuantityRepository.save(ingredientQuantity);
+                // Сохраняем IngredientQuantity в базе данных
+                ingredientQuantityRepository.save(ingredientQuantity);
+            }
+
+            // Устанавливаем список IngredientQuantity для рецепта
+            savedRecipe.setIngredientsQuantity(recipe.getIngredientsQuantity());
         }
-
-        // Устанавливаем список IngredientQuantity для рецепта
-        savedRecipe.setIngredientsQuantity(recipe.getIngredientsQuantity());
 
         // Сохраняем рецепт еще раз и возвращаем его
         return recipeRepository.save(savedRecipe);
@@ -77,15 +79,19 @@ public class RecipeServiceImpl implements RecipeService {
 
 
     @Override
+    @Transactional
     public Recipe updateRecipe(Long recipeId, Recipe updatedRecipeDTO) {
         Recipe recipeToUpdate = recipeRepository.findById(recipeId).
                 orElseThrow(() -> new ResourceNotFoundException("Recipe does not exist with given id: " + recipeId));
-        if (recipeToUpdate == null)
-            return null;
+
         if (updatedRecipeDTO.getName() != null)
             recipeToUpdate.setName(updatedRecipeDTO.getName());
         if (updatedRecipeDTO.getDescription() != null)
             recipeToUpdate.setDescription(updatedRecipeDTO.getDescription());
+        if (updatedRecipeDTO.getVisible() != null &&
+                updatedRecipeDTO.getVisible() != recipeToUpdate.getVisible())
+            recipeToUpdate.setVisible(updatedRecipeDTO.getVisible());
+
         if (updatedRecipeDTO.getIngredientsQuantity() != null) {
             ingredientQuantityRepository.deleteAllByRecipe(recipeToUpdate);
             for (IngredientQuantity ingredientQuantity : updatedRecipeDTO.getIngredientsQuantity()) {
@@ -105,19 +111,14 @@ public class RecipeServiceImpl implements RecipeService {
             }
             recipeToUpdate.setIngredientsQuantity(updatedRecipeDTO.getIngredientsQuantity());
         }
-        if (updatedRecipeDTO.isVisible() != recipeToUpdate.isVisible())
-            recipeToUpdate.setVisible(updatedRecipeDTO.isVisible());
 
         return recipeRepository.save(recipeToUpdate);
     }
 
     @Override
     public boolean deleteRecipe(Long recipeId) {
-        Recipe recipe = recipeRepository.findById(recipeId).
-                orElseThrow(() -> new ResourceNotFoundException("Recipe does not exist with given id: " + recipeId));
-
         recipeRepository.deleteById(recipeId);
-        return false;
+        return true;
     }
 
 

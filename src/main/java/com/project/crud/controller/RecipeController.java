@@ -67,21 +67,33 @@ public class RecipeController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Recipe> updateRecipe(@PathVariable Long id, @RequestBody Recipe recipe) {
-        Recipe updatedRecipe = recipeService.updateRecipe(id, recipe);
-        if (updatedRecipe != null) {
-            return new ResponseEntity<>(updatedRecipe, HttpStatus.OK);
-        } else {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<UserEntity> owner = userService.getUserByUsername(userDetails.getUsername());
+
+        if (recipeService.getRecipeById(id) == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+
+        if (owner.get().getId() != recipeService.getRecipeById(id).getOwnerId())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        Recipe updatedRecipe = recipeService.updateRecipe(id, recipe);
+        return new ResponseEntity<>(updatedRecipe, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRecipe(@PathVariable Long id) {
-        boolean deleted = recipeService.deleteRecipe(id);
-        if (deleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<UserEntity> owner = userService.getUserByUsername(userDetails.getUsername());
+
+        if(recipeService.getRecipeById(id) == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else {
+            if (owner.get().getId() != recipeService.getRecipeById(id).getOwnerId())
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+            recipeService.deleteRecipe(id);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
+
     }
 }

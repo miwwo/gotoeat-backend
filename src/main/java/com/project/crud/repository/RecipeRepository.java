@@ -12,4 +12,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     Recipe findRecipeByIdAndVisible(Long id, boolean visible);
 
     Recipe findRecipeById(Long recipeId);
+
 }

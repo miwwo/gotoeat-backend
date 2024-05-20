@@ -32,12 +32,12 @@ public class Recipe {
     private String description;
 
     @Column(name = "visible", nullable = false)
-    private boolean visible;
+    private Boolean visible;
 
     @Column(name = "owner_id", nullable = false)
     private Long ownerId;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-    private List<IngredientQuantity> ingredientsQuantity = new ArrayList<>();
+    private List<IngredientQuantity> ingredientsQuantity;
 }
