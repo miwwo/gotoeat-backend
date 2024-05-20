@@ -13,6 +13,12 @@ public interface ShoppingListService {
 
     ShoppingList addRecipeToShoppingList(UserEntity userEntity, Long recipeId);
 
+    ShoppingList removeRecipeFromShoppingList(UserEntity userEntity, Long recipeId);
+
+    ShoppingList completeShoppingList(UserEntity userEntity);
+
+    List<ShoppingList> getShoppingListHistory(UserEntity userEntity);
+
     List<ShoppingList> getAllShoppingLists();
 
     ShoppingList getShoppingListById(Long id);

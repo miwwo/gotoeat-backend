@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -35,7 +36,7 @@ public class ShoppingListController {
         }
     }
 
-    // метод добавления продукта в список покупок
+    // метод добавления рецепта в список покупок
     @PostMapping("/add-recipe/{recipeId}")
     public ResponseEntity<ShoppingList> addRecipeToShoppingList(@PathVariable Long recipeId) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -49,6 +50,52 @@ public class ShoppingListController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    // метод удаления рецепта из списка покупок
+    @DeleteMapping("/remove-recipe/{recipeId}")
+    public ResponseEntity<ShoppingList> removeRecipeFromShoppingList(@PathVariable Long recipeId) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<UserEntity> userOpt = userService.getUserByEmail(userDetails.getUsername());
+
+        ShoppingList shoppingList = shoppingListService.removeRecipeFromShoppingList(userOpt.get(), recipeId);
+
+        if (shoppingList != null) {
+            return new ResponseEntity<>(shoppingList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // метод завершения списка покупок (пометка о том, что список покупок куплен)
+    @PutMapping("/complete")
+    public ResponseEntity<ShoppingList> completeShoppingList() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<UserEntity> userOpt = userService.getUserByEmail(userDetails.getUsername());
+
+        ShoppingList shoppingList = shoppingListService.completeShoppingList(userOpt.get());
+
+        if (shoppingList != null) {
+            return new ResponseEntity<>(shoppingList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // метод получения истории всех списков покупок
+    @GetMapping("/history")
+    public ResponseEntity<List<ShoppingList>> getShoppingListHistory() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<UserEntity> userOpt = userService.getUserByEmail(userDetails.getUsername());
+
+        List<ShoppingList> shoppingLists = shoppingListService.getShoppingListHistory(userOpt.get());
+
+        if (shoppingLists != null) {
+            return new ResponseEntity<>(shoppingLists, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     /*@GetMapping("/{id}")
     public ResponseEntity<ShoppingList> getShoppingListById(@PathVariable Long id) {

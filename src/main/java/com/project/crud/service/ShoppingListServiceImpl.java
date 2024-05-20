@@ -42,6 +42,34 @@ public class ShoppingListServiceImpl implements ShoppingListService {
     }
 
     @Override
+    public ShoppingList removeRecipeFromShoppingList(UserEntity userEntity, Long recipeId) {
+        ShoppingList shoppingList = getActiveShoppingList(userEntity);
+        Recipe foundRecipe = recipeRepository.findRecipeById(recipeId);
+        if (shoppingList == null || foundRecipe == null) {
+            return null;
+        }
+        shoppingList.getSelectedRecipes().remove(foundRecipe);
+        return shoppingListRepository.save(shoppingList);
+    }
+
+    @Override
+    public ShoppingList completeShoppingList(UserEntity userEntity) {
+        ShoppingList shoppingList = getActiveShoppingList(userEntity);
+        if (shoppingList == null) {
+            return null;
+        }
+        shoppingList.setActive(false);
+        shoppingListRepository.save(shoppingList);
+        initializeShoppingList(userEntity);
+        return shoppingList;
+    }
+
+    @Override
+    public List<ShoppingList> getShoppingListHistory(UserEntity userEntity) {
+        return shoppingListRepository.findAllByUser(userEntity);
+    }
+
+    @Override
     public List<ShoppingList> getAllShoppingLists() {
         return null;
     }
