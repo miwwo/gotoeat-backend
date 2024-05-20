@@ -29,6 +29,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe createRecipe(Recipe recipe, UserEntity owner) {
         // Сохраняем рецепт в базе данных
         recipe.setOwnerId(owner.getId());
+        if (recipe.getDescription() == null) recipe.setDescription("");
         Recipe savedRecipe = recipeRepository.save(recipe);
 
         // Для каждого IngredientQuantity в рецепте
