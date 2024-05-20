@@ -38,6 +38,6 @@ public class Recipe {
     private Long ownerId;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<IngredientQuantity> ingredientsQuantity = new ArrayList<>();
 }

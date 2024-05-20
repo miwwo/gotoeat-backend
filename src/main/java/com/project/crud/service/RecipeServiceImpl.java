@@ -1,6 +1,5 @@
 package com.project.crud.service;
 
-import com.project.crud.dto.RecipeDTO;
 import com.project.crud.entity.Ingredient;
 import com.project.crud.entity.IngredientQuantity;
 import com.project.crud.entity.Recipe;
@@ -40,7 +39,8 @@ public class RecipeServiceImpl implements RecipeService {
             // Проверяем, существует ли ингредиент с данным ID
             Ingredient ingredient = ingredientRepository.findById(ingredientQuantity.getIngredient().getId())
                     .orElseThrow(() -> new ResourceNotFoundException("Ingredient does not exist with given id: " + ingredientQuantity.getIngredient().getId()));
-
+            if (ingredient == null)
+                return null;
             // Устанавливаем ссылку на ингредиент
             ingredientQuantity.setIngredient(ingredient);
 
@@ -56,25 +56,59 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Recipe getRecipeById(Long recipeId) {
-
-        return recipeRepository.findById(recipeId).
-                orElseThrow(() -> new ResourceNotFoundException("Recipe does not exist with given id: " + recipeId));
-    }
-
-    @Override
     public List<Recipe> getAllRecipes() {
         return recipeRepository.findAll();
     }
 
     @Override
+    public List<Recipe> getVisibleRecipes() {
+        return recipeRepository.findAllByVisible(true);
+    }
+
+    @Override
+    public Recipe getVisibleRecipeById(Long recipeId, Boolean visible) {
+        return recipeRepository.findRecipeByIdAndVisible(recipeId, visible);
+    }
+
+    @Override
+    public Recipe getRecipeById(Long recipeId) {
+        return recipeRepository.findRecipeById(recipeId);
+    }
+
+
+    @Override
     public Recipe updateRecipe(Long recipeId, Recipe updatedRecipeDTO) {
-        Recipe recipe = recipeRepository.findById(recipeId).
+        Recipe recipeToUpdate = recipeRepository.findById(recipeId).
                 orElseThrow(() -> new ResourceNotFoundException("Recipe does not exist with given id: " + recipeId));
+        if (recipeToUpdate == null)
+            return null;
+        if (updatedRecipeDTO.getName() != null)
+            recipeToUpdate.setName(updatedRecipeDTO.getName());
+        if (updatedRecipeDTO.getDescription() != null)
+            recipeToUpdate.setDescription(updatedRecipeDTO.getDescription());
+        if (updatedRecipeDTO.getIngredientsQuantity() != null) {
+            ingredientQuantityRepository.deleteAllByRecipe(recipeToUpdate);
+            for (IngredientQuantity ingredientQuantity : updatedRecipeDTO.getIngredientsQuantity()) {
+                // Устанавливаем ссылку на этот рецепт
+                ingredientQuantity.setRecipe(recipeToUpdate);
+                // Проверяем, существует ли ингредиент с данным ID
+                Ingredient ingredient = ingredientRepository.findById(ingredientQuantity.getIngredient().getId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Ingredient does not exist with given id: " + ingredientQuantity.getIngredient().getId()));
+                if (ingredient == null)
+                    return null;
 
-        recipe.setName(updatedRecipeDTO.getName());
+                // Устанавливаем ссылку на ингредиент
+                ingredientQuantity.setIngredient(ingredient);
 
-        return recipeRepository.save(recipe);
+                // Сохраняем IngredientQuantity в базе данных
+                ingredientQuantityRepository.save(ingredientQuantity);
+            }
+            recipeToUpdate.setIngredientsQuantity(updatedRecipeDTO.getIngredientsQuantity());
+        }
+        if (updatedRecipeDTO.isVisible() != recipeToUpdate.isVisible())
+            recipeToUpdate.setVisible(updatedRecipeDTO.isVisible());
+
+        return recipeRepository.save(recipeToUpdate);
     }
 
     @Override
@@ -86,8 +120,5 @@ public class RecipeServiceImpl implements RecipeService {
         return false;
     }
 
-    @Override
-    public List<Recipe> getVisibleRecipes() {
-        return recipeRepository.findAllByVisible(true);
-    }
+
 }
