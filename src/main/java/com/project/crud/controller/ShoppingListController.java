@@ -24,7 +24,7 @@ public class ShoppingListController {
     @GetMapping
     public ResponseEntity<ShoppingList> getActiveShoppingList() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<UserEntity> userOpt = userService.getUserByUsername(userDetails.getUsername());
+        Optional<UserEntity> userOpt = userService.getUserByEmail(userDetails.getUsername());
 
         ShoppingList shoppingList = shoppingListService.getActiveShoppingList(userOpt.get());
 
@@ -39,7 +39,7 @@ public class ShoppingListController {
     @PostMapping("/add-recipe/{recipeId}")
     public ResponseEntity<ShoppingList> addRecipeToShoppingList(@PathVariable Long recipeId) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<UserEntity> userOpt = userService.getUserByUsername(userDetails.getUsername());
+        Optional<UserEntity> userOpt = userService.getUserByEmail(userDetails.getUsername());
 
         ShoppingList shoppingList = shoppingListService.addRecipeToShoppingList(userOpt.get(), recipeId);
 

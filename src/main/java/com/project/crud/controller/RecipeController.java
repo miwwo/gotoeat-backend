@@ -31,7 +31,7 @@ public class RecipeController {
     @PostMapping
     public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe recipe) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<UserEntity> owner = userService.getUserByUsername(userDetails.getUsername());
+        Optional<UserEntity> owner = userService.getUserByEmail(userDetails.getUsername());
 
         Recipe createdRecipe = recipeService.createRecipe(recipe, owner.get());
         if (createdRecipe == null) {
@@ -60,7 +60,7 @@ public class RecipeController {
     @PutMapping("/{id}")
     public ResponseEntity<Recipe> updateRecipe(@PathVariable Long id, @RequestBody Recipe recipe) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<UserEntity> owner = userService.getUserByUsername(userDetails.getUsername());
+        Optional<UserEntity> owner = userService.getUserByEmail(userDetails.getUsername());
 
         if (recipeService.getRecipeById(id) == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -75,7 +75,7 @@ public class RecipeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRecipe(@PathVariable Long id) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<UserEntity> owner = userService.getUserByUsername(userDetails.getUsername());
+        Optional<UserEntity> owner = userService.getUserByEmail(userDetails.getUsername());
 
         if(recipeService.getRecipeById(id) == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

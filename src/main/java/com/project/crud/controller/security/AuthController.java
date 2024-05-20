@@ -46,12 +46,12 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody SignUpDTO signUpDTO){
-        if(userRepository.existsByUsername(signUpDTO.getUsername())){
+        if(userRepository.existsByEmail(signUpDTO.getEmail())){
             return ResponseEntity.badRequest().body("Username is already taken!");
         }
 
         UserEntity user = new UserEntity();
-        user.setUsername(signUpDTO.getUsername());
+        user.setEmail(signUpDTO.getEmail());
         user.setPassword(passwordEncoder.encode(signUpDTO.getPassword()));
         user.setEnabled(true);
 
@@ -68,7 +68,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO){
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword())
+                new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
