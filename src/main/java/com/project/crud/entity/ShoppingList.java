@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -37,6 +39,53 @@ public class ShoppingList {
             inverseJoinColumns = @JoinColumn(name = "recipe_id")
     )
     private List<Recipe> selectedRecipes = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(name = "shopping_list_ingredients", joinColumns = @JoinColumn(name = "shopping_list_id"))
+    @MapKeyJoinColumn(name = "ingredient_name")
+    @Column(name = "quantity")
+    private Map<String, Integer> sumOfIngredients = new HashMap<>();
+    public void addRecipe(Recipe recipe) {
+        for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
+            String ingredientName = ingredientQuantity.getIngredient().getName();
+            Integer quantity = ingredientQuantity.getQuantity();
+            sumOfIngredients.put(
+                    ingredientName,
+                    sumOfIngredients.getOrDefault(ingredientName, 0) + quantity
+            );
+        }
+        selectedRecipes.add(recipe);
+    }
+
+    public void removeRecipe(Recipe recipe) {
+        for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
+            String ingredientName = ingredientQuantity.getIngredient().getName();
+            Integer quantity = ingredientQuantity.getQuantity();
+            int newQuantity = sumOfIngredients.getOrDefault(ingredientName, 0) - quantity;
+            if (newQuantity <= 0) {
+                sumOfIngredients.remove(ingredientName);
+            } else {
+                sumOfIngredients.put(ingredientName, newQuantity);
+            }
+        }
+        selectedRecipes.remove(recipe);
+    }
+
+    /*public Map<Ingredient, Integer> getSumOfAllIngredients() {
+        Map<Ingredient, Integer> sumOfIngredients = new HashMap<>();
+
+        for (Recipe recipe : selectedRecipes) {
+            for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
+                Ingredient ingredient = ingredientQuantity.getIngredient();
+                Integer quantity = ingredientQuantity.getQuantity();
+                sumOfIngredients.put(
+                        ingredient,
+                        sumOfIngredients.getOrDefault(ingredient, 0) + quantity
+                );
+            }
+        }
+        return sumOfIngredients;
+    }*/
 
     /*@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

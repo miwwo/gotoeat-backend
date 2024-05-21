@@ -6,6 +6,7 @@ import com.project.crud.entity.UserEntity;
 import com.project.crud.repository.RecipeRepository;
 import com.project.crud.repository.ShoppingListRepository;
 import com.project.crud.service.interfaces.ShoppingListService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,24 +32,26 @@ public class ShoppingListServiceImpl implements ShoppingListService {
     }
 
     @Override
+    @Transactional
     public ShoppingList addRecipeToShoppingList(UserEntity userEntity, Long recipeId) {
         ShoppingList shoppingList = getActiveShoppingList(userEntity);
         Recipe foundRecipe = recipeRepository.findRecipeById(recipeId);
         if (shoppingList == null || foundRecipe == null) {
             return null;
         }
-        shoppingList.getSelectedRecipes().add(foundRecipe);
+        shoppingList.addRecipe(foundRecipe);
         return shoppingListRepository.save(shoppingList);
     }
 
     @Override
+    @Transactional
     public ShoppingList removeRecipeFromShoppingList(UserEntity userEntity, Long recipeId) {
         ShoppingList shoppingList = getActiveShoppingList(userEntity);
         Recipe foundRecipe = recipeRepository.findRecipeById(recipeId);
         if (shoppingList == null || foundRecipe == null) {
             return null;
         }
-        shoppingList.getSelectedRecipes().remove(foundRecipe);
+        shoppingList.removeRecipe(foundRecipe);
         return shoppingListRepository.save(shoppingList);
     }
 
