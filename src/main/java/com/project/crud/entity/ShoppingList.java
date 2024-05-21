@@ -1,6 +1,7 @@
 package com.project.crud.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,11 +41,61 @@ public class ShoppingList {
     )
     private List<Recipe> selectedRecipes = new ArrayList<>();
 
-    @ElementCollection
+    @JsonManagedReference
+    @OneToMany(mappedBy = "shoppingList", cascade = CascadeType.ALL)
+    private List<ShListIngredientQuantity> shListIngredientsQuantity;
+
+    public void addRecipe(Recipe recipe) {
+        for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
+            String ingredientName = ingredientQuantity.getIngredient().getName();
+            Integer quantity = ingredientQuantity.getQuantity();
+
+            ShListIngredientQuantity shListIngredientQuantity = shListIngredientsQuantity.stream()
+                    .filter(i -> i.getIngredient().getName().equals(ingredientName))
+                    .findFirst()
+                    .orElse(null);
+
+            if (shListIngredientQuantity == null) {
+                shListIngredientQuantity = new ShListIngredientQuantity();
+                shListIngredientQuantity.setIngredient(ingredientQuantity.getIngredient());
+                shListIngredientQuantity.setQuantity(quantity);
+                shListIngredientQuantity.setShoppingList(this);
+                shListIngredientsQuantity.add(shListIngredientQuantity);
+            } else {
+                shListIngredientQuantity.setQuantity(shListIngredientQuantity.getQuantity() + quantity);
+            }
+        }
+        selectedRecipes.add(recipe);
+    }
+
+    public void removeRecipe(Recipe recipe) {
+        for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
+            String ingredientName = ingredientQuantity.getIngredient().getName();
+            Integer quantity = ingredientQuantity.getQuantity();
+
+            ShListIngredientQuantity shListIngredientQuantity = shListIngredientsQuantity.stream()
+                    .filter(i -> i.getIngredient().getName().equals(ingredientName))
+                    .findFirst()
+                    .orElse(null);
+
+            if (shListIngredientQuantity != null) {
+                int newQuantity = shListIngredientQuantity.getQuantity() - quantity;
+                if (newQuantity <= 0) {
+                    shListIngredientsQuantity.remove(shListIngredientQuantity);
+                } else {
+                    shListIngredientQuantity.setQuantity(newQuantity);
+                }
+            }
+        }
+        selectedRecipes.remove(recipe);
+    }
+
+    /*@ElementCollection
     @CollectionTable(name = "shopping_list_ingredients", joinColumns = @JoinColumn(name = "shopping_list_id"))
     @MapKeyJoinColumn(name = "ingredient_name")
     @Column(name = "quantity")
     private Map<String, Integer> sumOfIngredients = new HashMap<>();
+
     public void addRecipe(Recipe recipe) {
         for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
             String ingredientName = ingredientQuantity.getIngredient().getName();
@@ -69,7 +120,7 @@ public class ShoppingList {
             }
         }
         selectedRecipes.remove(recipe);
-    }
+    }*/
 
     /*public Map<Ingredient, Integer> getSumOfAllIngredients() {
         Map<Ingredient, Integer> sumOfIngredients = new HashMap<>();
