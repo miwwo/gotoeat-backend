@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="sumOfIngredients added">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/ShListIngredientQuantity.java" afterDir="false" />
+    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="ShListIngredientQuantity realized">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/ShoppingListIngredientRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/IngredientQuantity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/RecipeIngredient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/Recipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/ShListIngredientQuantity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/ShoppingListIngredient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/ShoppingList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/ShoppingList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/IngredientQuantityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/RecipeIngredientRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/RecipeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/RecipeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/ShoppingListServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/ShoppingListServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,8 +94,8 @@
       <recent name="com.project.crud.dto" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.project.crud.entity" />
       <recent name="com.project.crud.repository" />
+      <recent name="com.project.crud.entity" />
       <recent name="com.project.crud.dto" />
     </key>
   </component>
@@ -136,7 +142,7 @@
       <workItem from="1716140530549" duration="2883000" />
       <workItem from="1716143458151" duration="13841000" />
       <workItem from="1716201337458" duration="14285000" />
-      <workItem from="1716226522034" duration="18144000" />
+      <workItem from="1716226522034" duration="22605000" />
     </task>
     <task id="LOCAL-00001" summary="User CRUD changed Recipe">
       <option name="closed" value="true" />
@@ -346,7 +352,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716252362269</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="ShListIngredientQuantity realized">
+      <option name="closed" value="true" />
+      <created>1716254527794</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1716254527794</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -380,7 +394,6 @@
       <path value="$PROJECT_DIR$/.." />
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="made jwt auth" />
     <MESSAGE value="added csrf stuff......" />
     <MESSAGE value="JWT Provider @Autowired fix" />
     <MESSAGE value="Role access to endpoints fix" />
@@ -405,7 +418,8 @@
     <MESSAGE value="JWT: username теперь поле email" />
     <MESSAGE value="ShoppingList Logic done" />
     <MESSAGE value="sumOfIngredients added" />
-    <option name="LAST_COMMIT_MESSAGE" value="sumOfIngredients added" />
+    <MESSAGE value="ShListIngredientQuantity realized" />
+    <option name="LAST_COMMIT_MESSAGE" value="ShListIngredientQuantity realized" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

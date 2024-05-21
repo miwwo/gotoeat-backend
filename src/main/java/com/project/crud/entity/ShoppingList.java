@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -43,52 +41,8 @@ public class ShoppingList {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "shoppingList", cascade = CascadeType.ALL)
-    private List<ShListIngredientQuantity> shListIngredientsQuantity;
+    private List<ShoppingListIngredient> shoppingListIngredients;
 
-    public void addRecipe(Recipe recipe) {
-        for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
-            String ingredientName = ingredientQuantity.getIngredient().getName();
-            Integer quantity = ingredientQuantity.getQuantity();
-
-            ShListIngredientQuantity shListIngredientQuantity = shListIngredientsQuantity.stream()
-                    .filter(i -> i.getIngredient().getName().equals(ingredientName))
-                    .findFirst()
-                    .orElse(null);
-
-            if (shListIngredientQuantity == null) {
-                shListIngredientQuantity = new ShListIngredientQuantity();
-                shListIngredientQuantity.setIngredient(ingredientQuantity.getIngredient());
-                shListIngredientQuantity.setQuantity(quantity);
-                shListIngredientQuantity.setShoppingList(this);
-                shListIngredientsQuantity.add(shListIngredientQuantity);
-            } else {
-                shListIngredientQuantity.setQuantity(shListIngredientQuantity.getQuantity() + quantity);
-            }
-        }
-        selectedRecipes.add(recipe);
-    }
-
-    public void removeRecipe(Recipe recipe) {
-        for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
-            String ingredientName = ingredientQuantity.getIngredient().getName();
-            Integer quantity = ingredientQuantity.getQuantity();
-
-            ShListIngredientQuantity shListIngredientQuantity = shListIngredientsQuantity.stream()
-                    .filter(i -> i.getIngredient().getName().equals(ingredientName))
-                    .findFirst()
-                    .orElse(null);
-
-            if (shListIngredientQuantity != null) {
-                int newQuantity = shListIngredientQuantity.getQuantity() - quantity;
-                if (newQuantity <= 0) {
-                    shListIngredientsQuantity.remove(shListIngredientQuantity);
-                } else {
-                    shListIngredientQuantity.setQuantity(newQuantity);
-                }
-            }
-        }
-        selectedRecipes.remove(recipe);
-    }
 
     /*@ElementCollection
     @CollectionTable(name = "shopping_list_ingredients", joinColumns = @JoinColumn(name = "shopping_list_id"))
@@ -97,7 +51,7 @@ public class ShoppingList {
     private Map<String, Integer> sumOfIngredients = new HashMap<>();
 
     public void addRecipe(Recipe recipe) {
-        for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
+        for (RecipeIngredient ingredientQuantity : recipe.getRecipeIngredients()) {
             String ingredientName = ingredientQuantity.getIngredient().getName();
             Integer quantity = ingredientQuantity.getQuantity();
             sumOfIngredients.put(
@@ -109,7 +63,7 @@ public class ShoppingList {
     }
 
     public void removeRecipe(Recipe recipe) {
-        for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
+        for (RecipeIngredient ingredientQuantity : recipe.getRecipeIngredients()) {
             String ingredientName = ingredientQuantity.getIngredient().getName();
             Integer quantity = ingredientQuantity.getQuantity();
             int newQuantity = sumOfIngredients.getOrDefault(ingredientName, 0) - quantity;
@@ -126,7 +80,7 @@ public class ShoppingList {
         Map<Ingredient, Integer> sumOfIngredients = new HashMap<>();
 
         for (Recipe recipe : selectedRecipes) {
-            for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
+            for (RecipeIngredient ingredientQuantity : recipe.getRecipeIngredients()) {
                 Ingredient ingredient = ingredientQuantity.getIngredient();
                 Integer quantity = ingredientQuantity.getQuantity();
                 sumOfIngredients.put(

@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -39,5 +36,5 @@ public class Recipe {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-    private List<IngredientQuantity> ingredientsQuantity;
+    private List<RecipeIngredient> recipeIngredients;
 }

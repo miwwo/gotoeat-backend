@@ -1,11 +1,11 @@
 package com.project.crud.service;
 
 import com.project.crud.entity.Ingredient;
-import com.project.crud.entity.IngredientQuantity;
+import com.project.crud.entity.RecipeIngredient;
 import com.project.crud.entity.Recipe;
 import com.project.crud.entity.UserEntity;
 import com.project.crud.exception.ResourceNotFoundException;
-import com.project.crud.repository.IngredientQuantityRepository;
+import com.project.crud.repository.RecipeIngredientRepository;
 import com.project.crud.repository.IngredientRepository;
 import com.project.crud.repository.RecipeRepository;
 import com.project.crud.repository.UserRepository;
@@ -22,7 +22,7 @@ public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
     private final UserRepository userRepository;
     private final IngredientRepository ingredientRepository;
-    private final IngredientQuantityRepository ingredientQuantityRepository;
+    private final RecipeIngredientRepository recipeIngredientRepository;
 
     @Override
     @Transactional
@@ -32,26 +32,26 @@ public class RecipeServiceImpl implements RecipeService {
         if (recipe.getDescription() == null) recipe.setDescription("");
         Recipe savedRecipe = recipeRepository.save(recipe);
 
-        // Для каждого IngredientQuantity в рецепте
-        if (recipe.getIngredientsQuantity() != null) {
-            for (IngredientQuantity ingredientQuantity : recipe.getIngredientsQuantity()) {
+        // Для каждого RecipeIngredient в рецепте
+        if (recipe.getRecipeIngredients() != null) {
+            for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredients()) {
                 // Устанавливаем ссылку на этот рецепт
-                ingredientQuantity.setRecipe(savedRecipe);
+                recipeIngredient.setRecipe(savedRecipe);
 
                 // Проверяем, существует ли ингредиент с данным ID
-                Ingredient ingredient = ingredientRepository.findById(ingredientQuantity.getIngredient().getId())
-                        .orElseThrow(() -> new ResourceNotFoundException("Ingredient does not exist with given id: " + ingredientQuantity.getIngredient().getId()));
+                Ingredient ingredient = ingredientRepository.findById(recipeIngredient.getIngredient().getId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Ingredient does not exist with given id: " + recipeIngredient.getIngredient().getId()));
                 if (ingredient == null)
                     return null;
                 // Устанавливаем ссылку на ингредиент
-                ingredientQuantity.setIngredient(ingredient);
+                recipeIngredient.setIngredient(ingredient);
 
-                // Сохраняем IngredientQuantity в базе данных
-                ingredientQuantityRepository.save(ingredientQuantity);
+                // Сохраняем RecipeIngredient в базе данных
+                recipeIngredientRepository.save(recipeIngredient);
             }
 
-            // Устанавливаем список IngredientQuantity для рецепта
-            savedRecipe.setIngredientsQuantity(recipe.getIngredientsQuantity());
+            // Устанавливаем список RecipeIngredient для рецепта
+            savedRecipe.setRecipeIngredients(recipe.getRecipeIngredients());
         }
 
         // Сохраняем рецепт еще раз и возвращаем его
@@ -93,24 +93,24 @@ public class RecipeServiceImpl implements RecipeService {
                 updatedRecipeDTO.getVisible() != recipeToUpdate.getVisible())
             recipeToUpdate.setVisible(updatedRecipeDTO.getVisible());
 
-        if (updatedRecipeDTO.getIngredientsQuantity() != null) {
-            ingredientQuantityRepository.deleteAllByRecipe(recipeToUpdate);
-            for (IngredientQuantity ingredientQuantity : updatedRecipeDTO.getIngredientsQuantity()) {
+        if (updatedRecipeDTO.getRecipeIngredients() != null) {
+            recipeIngredientRepository.deleteAllByRecipe(recipeToUpdate);
+            for (RecipeIngredient recipeIngredient : updatedRecipeDTO.getRecipeIngredients()) {
                 // Устанавливаем ссылку на этот рецепт
-                ingredientQuantity.setRecipe(recipeToUpdate);
+                recipeIngredient.setRecipe(recipeToUpdate);
                 // Проверяем, существует ли ингредиент с данным ID
-                Ingredient ingredient = ingredientRepository.findById(ingredientQuantity.getIngredient().getId())
-                        .orElseThrow(() -> new ResourceNotFoundException("Ingredient does not exist with given id: " + ingredientQuantity.getIngredient().getId()));
+                Ingredient ingredient = ingredientRepository.findById(recipeIngredient.getIngredient().getId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Ingredient does not exist with given id: " + recipeIngredient.getIngredient().getId()));
                 if (ingredient == null)
                     return null;
 
                 // Устанавливаем ссылку на ингредиент
-                ingredientQuantity.setIngredient(ingredient);
+                recipeIngredient.setIngredient(ingredient);
 
-                // Сохраняем IngredientQuantity в базе данных
-                ingredientQuantityRepository.save(ingredientQuantity);
+                // Сохраняем RecipeIngredient в базе данных
+                recipeIngredientRepository.save(recipeIngredient);
             }
-            recipeToUpdate.setIngredientsQuantity(updatedRecipeDTO.getIngredientsQuantity());
+            recipeToUpdate.setRecipeIngredients(updatedRecipeDTO.getRecipeIngredients());
         }
 
         return recipeRepository.save(recipeToUpdate);

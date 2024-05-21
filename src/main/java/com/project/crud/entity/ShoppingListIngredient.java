@@ -1,8 +1,6 @@
 package com.project.crud.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.project.crud.entity.Ingredient;
-import com.project.crud.entity.Recipe;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "ingredient_quantity")
-public class IngredientQuantity {
+@Table(name = "shopping_list_ingredient")
+public class ShoppingListIngredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +19,8 @@ public class IngredientQuantity {
 
     @JsonBackReference // потому что двунаправленная связь, ставим чтобы не было рекурсии
     @ManyToOne // необязательно вообще иметь обратную двунаправленную связь
-    @JoinColumn(name = "recipe_id", nullable = false)
-    private Recipe recipe;
+    @JoinColumn(name = "shopping_list_id", nullable = false)
+    private ShoppingList shoppingList;
 
     @ManyToOne
     @JoinColumn(name = "ingredient_id", nullable = false) // если у нас объект класса, то используем @JoinColumn

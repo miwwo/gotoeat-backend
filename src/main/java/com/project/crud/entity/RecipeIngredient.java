@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "shopping_list_ingredient_quantity")
-public class ShListIngredientQuantity {
+@Table(name = "recipe_ingredient")
+public class RecipeIngredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +19,8 @@ public class ShListIngredientQuantity {
 
     @JsonBackReference // потому что двунаправленная связь, ставим чтобы не было рекурсии
     @ManyToOne // необязательно вообще иметь обратную двунаправленную связь
-    @JoinColumn(name = "shopping_list_id", nullable = false)
-    private ShoppingList shoppingList;
+    @JoinColumn(name = "recipe_id", nullable = false)
+    private Recipe recipe;
 
     @ManyToOne
     @JoinColumn(name = "ingredient_id", nullable = false) // если у нас объект класса, то используем @JoinColumn

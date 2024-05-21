@@ -1,9 +1,8 @@
 package com.project.crud.service;
 
-import com.project.crud.entity.Recipe;
-import com.project.crud.entity.ShoppingList;
-import com.project.crud.entity.UserEntity;
+import com.project.crud.entity.*;
 import com.project.crud.repository.RecipeRepository;
+import com.project.crud.repository.ShoppingListIngredientRepository;
 import com.project.crud.repository.ShoppingListRepository;
 import com.project.crud.service.interfaces.ShoppingListService;
 import jakarta.transaction.Transactional;
@@ -18,6 +17,7 @@ import java.util.Optional;
 public class ShoppingListServiceImpl implements ShoppingListService {
     private final ShoppingListRepository shoppingListRepository;
     private final RecipeRepository recipeRepository;
+    private final ShoppingListIngredientRepository shoppingListIngredientRepository;
     @Override
     public void initializeShoppingList(UserEntity user) {
         ShoppingList shoppingList = new ShoppingList();
@@ -39,7 +39,29 @@ public class ShoppingListServiceImpl implements ShoppingListService {
         if (shoppingList == null || foundRecipe == null) {
             return null;
         }
-        shoppingList.addRecipe(foundRecipe);
+
+        for (RecipeIngredient recipeIngredient : foundRecipe.getRecipeIngredients()) {
+            String ingredientName = recipeIngredient.getIngredient().getName();
+            Integer quantity = recipeIngredient.getQuantity();
+
+            ShoppingListIngredient shoppingListIngredient = shoppingList.getShoppingListIngredients().stream()
+                    .filter(i -> i.getIngredient().getName().equals(ingredientName))
+                    .findFirst()
+                    .orElse(null);
+
+            if (shoppingListIngredient == null) {
+                shoppingListIngredient = new ShoppingListIngredient();
+                shoppingListIngredient.setIngredient(recipeIngredient.getIngredient());
+                shoppingListIngredient.setQuantity(quantity);
+                shoppingListIngredient.setShoppingList(shoppingList);
+                shoppingList.getShoppingListIngredients().add(shoppingListIngredient);
+            } else {
+                shoppingListIngredient.setQuantity(shoppingListIngredient.getQuantity() + quantity);
+            }
+            shoppingListIngredientRepository.save(shoppingListIngredient);
+        }
+        shoppingList.getSelectedRecipes().add(foundRecipe);
+
         return shoppingListRepository.save(shoppingList);
     }
 
@@ -48,10 +70,31 @@ public class ShoppingListServiceImpl implements ShoppingListService {
     public ShoppingList removeRecipeFromShoppingList(UserEntity userEntity, Long recipeId) {
         ShoppingList shoppingList = getActiveShoppingList(userEntity);
         Recipe foundRecipe = recipeRepository.findRecipeById(recipeId);
-        if (shoppingList == null || foundRecipe == null) {
+        if (shoppingList == null || foundRecipe == null || !shoppingList.getSelectedRecipes().contains(foundRecipe)) {
             return null;
         }
-        shoppingList.removeRecipe(foundRecipe);
+
+        for (RecipeIngredient recipeIngredient : foundRecipe.getRecipeIngredients()) {
+            String ingredientName = recipeIngredient.getIngredient().getName();
+            Integer quantity = recipeIngredient.getQuantity();
+
+            ShoppingListIngredient shoppingListIngredient = shoppingList.getShoppingListIngredients().stream()
+                    .filter(i -> i.getIngredient().getName().equals(ingredientName))
+                    .findFirst()
+                    .orElse(null);
+
+            if (shoppingListIngredient != null) {
+                int newQuantity = shoppingListIngredient.getQuantity() - quantity;
+                if (newQuantity <= 0) {
+                    shoppingList.getShoppingListIngredients().remove(shoppingListIngredient);
+                    shoppingListIngredientRepository.delete(shoppingListIngredient);
+                } else {
+                    shoppingListIngredient.setQuantity(newQuantity);
+                    shoppingListIngredientRepository.save(shoppingListIngredient);
+                }
+            }
+        }
+        shoppingList.getSelectedRecipes().remove(foundRecipe);
         return shoppingListRepository.save(shoppingList);
     }
 
