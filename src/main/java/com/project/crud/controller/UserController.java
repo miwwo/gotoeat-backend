@@ -33,13 +33,13 @@ public class UserController {
         return new ResponseEntity<>(shoppingList, HttpStatus.OK);
     }*/
 
-    /*@GetMapping("/{id}/recipes")
+    @GetMapping("/{id}/recipes")
     public ResponseEntity<List<Recipe>> getRecipesByUser(@PathVariable Long id) {
 
         List<Recipe> recipes = userService.getRecipesByUser(id);
 
         return new ResponseEntity<>(recipes, HttpStatus.OK);
-    }*/
+    }
 
 
 }

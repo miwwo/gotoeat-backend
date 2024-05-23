@@ -22,7 +22,7 @@ public class RecipeController {
     private final RecipeService recipeService;
     private final UserService userService;
 
-    @GetMapping("/public")
+    @GetMapping()
     public ResponseEntity<List<Recipe>> getVisibleRecipes() {
         List<Recipe> publicRecipes = recipeService.getVisibleRecipes();
         return new ResponseEntity<>(publicRecipes, HttpStatus.OK);
@@ -42,7 +42,7 @@ public class RecipeController {
 
     }
 
-    @GetMapping("/public/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Recipe> getVisibleRecipeById(@PathVariable Long id) {
         Boolean visible = true;
         Recipe recipe = recipeService.getVisibleRecipeById(id, visible);
@@ -52,9 +52,6 @@ public class RecipeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-
-
 
 
     @PutMapping("/{id}")
