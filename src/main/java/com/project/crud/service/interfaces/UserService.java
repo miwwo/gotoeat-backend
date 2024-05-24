@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
+
+
     UserEntity createUser(UserEntity userEntity);
 
     UserEntity getUserById(Long userId);
@@ -18,7 +20,6 @@ public interface UserService {
 
     ShoppingList getShoppingListByUser(Long id);
 
-    List<Recipe> getRecipesByUser(Long id);
 
     UserEntity updateUser(Long id, UserEntity user);
 

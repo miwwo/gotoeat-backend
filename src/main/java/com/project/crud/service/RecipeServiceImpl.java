@@ -69,6 +69,11 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    public List<Recipe> findRecipesByOwnerId(Long id) {
+        return recipeRepository.findRecipesByOwnerId(id);
+    }
+
+    @Override
     public Recipe getVisibleRecipeById(Long recipeId, Boolean visible) {
         return recipeRepository.findRecipeByIdAndVisible(recipeId, visible);
     }
@@ -117,9 +122,8 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public boolean deleteRecipe(Long recipeId) {
+    public void deleteRecipe(Long recipeId) {
         recipeRepository.deleteById(recipeId);
-        return true;
     }
 
 

@@ -12,12 +12,13 @@ public interface RecipeService {
 
     Recipe getVisibleRecipeById(Long recipeId, Boolean visible);
 
-
     List<Recipe> getAllRecipes();
 
     Recipe updateRecipe(Long recipeId, Recipe updatedRecipe);
 
-    boolean deleteRecipe(Long recipeId);
+    void deleteRecipe(Long recipeId);
 
     List<Recipe> getVisibleRecipes();
+
+    List<Recipe> findRecipesByOwnerId(Long id);
 }

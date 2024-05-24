@@ -2,41 +2,32 @@ package com.project.crud.controller;
 
 import com.project.crud.entity.Recipe;
 import com.project.crud.entity.ShoppingList;
+import com.project.crud.entity.UserEntity;
+import com.project.crud.service.interfaces.RecipeService;
 import com.project.crud.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/profile")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final RecipeService recipeService;
 
-    /*@GetMapping("/{id}")
-    public ResponseEntity<Recipe> getRecipeById(@PathVariable Long id) {
-        Recipe recipe = recipeService.getRecipeById(id);
-        if (recipe != null) {
-            return new ResponseEntity<>(recipe, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }*/
-    /*@GetMapping("/{id}/shopping-list")
-    public ResponseEntity<ShoppingList> getShoppingListByUser(@PathVariable Long id) {
+    @GetMapping("/recipes")///////////
+    public ResponseEntity<List<Recipe>> getRecipesByUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<UserEntity> owner = userService.getUserByEmail(userDetails.getUsername());
 
-        ShoppingList shoppingList = userService.getShoppingListByUser(id);
-
-        return new ResponseEntity<>(shoppingList, HttpStatus.OK);
-    }*/
-
-    @GetMapping("/{id}/recipes")
-    public ResponseEntity<List<Recipe>> getRecipesByUser(@PathVariable Long id) {
-
-        List<Recipe> recipes = userService.getRecipesByUser(id);
+        List<Recipe> recipes = recipeService.findRecipesByOwnerId(owner.get().getId());
 
         return new ResponseEntity<>(recipes, HttpStatus.OK);
     }

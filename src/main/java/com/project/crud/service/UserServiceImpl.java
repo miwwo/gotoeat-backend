@@ -1,6 +1,4 @@
 package com.project.crud.service;
-
-import com.project.crud.entity.Recipe;
 import com.project.crud.entity.ShoppingList;
 import com.project.crud.entity.UserEntity;
 import com.project.crud.repository.UserRepository;
@@ -41,10 +39,6 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    @Override
-    public List<Recipe> getRecipesByUser(Long id) {
-        return null;
-    }
 
     @Override
     public UserEntity updateUser(Long id, UserEntity user) {
