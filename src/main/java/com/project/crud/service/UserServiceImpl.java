@@ -1,5 +1,4 @@
 package com.project.crud.service;
-import com.project.crud.entity.ShoppingList;
 import com.project.crud.entity.UserEntity;
 import com.project.crud.repository.UserRepository;
 import com.project.crud.service.interfaces.UserService;
@@ -15,13 +14,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public UserEntity createUser(UserEntity userEntity) {
-        return null;
-    }
-
-    @Override
-    public UserEntity getUserById(Long userId) {
-        return null;
+    public Optional<UserEntity> getUserById(Long userId) {
+        return userRepository.findById(userId);
     }
 
     @Override
@@ -31,14 +25,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserEntity> getAllUsers() {
-        return null;
+        return userRepository.findAll();
     }
-
-    @Override
-    public ShoppingList getShoppingListByUser(Long id) {
-        return null;
-    }
-
 
     @Override
     public UserEntity updateUser(Long id, UserEntity user) {

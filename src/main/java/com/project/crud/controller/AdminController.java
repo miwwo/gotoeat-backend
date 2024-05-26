@@ -10,9 +10,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
@@ -22,21 +25,21 @@ public class AdminController {
     private final UserService userService;
     private final RecipeService recipeService;
 
-    /*@GetMapping("/users")
+    @GetMapping("/users")
     public ResponseEntity<List<UserEntity>> getAllUsers() {
         List<UserEntity> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
-    }*/
+    }
 
-    /*@GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
-        UserEntity user = userService.getUserById(id);
-        if (user != null) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
+        Optional<UserEntity> user = userService.getUserById(id);
+        if (user.isPresent()) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }*/
+    }
 
     /*@PostMapping
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user) {
@@ -44,7 +47,7 @@ public class AdminController {
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }*/
 
-    /*@PutMapping("/{id}")
+    /*@PutMapping("/users/{id}")
     public ResponseEntity<UserEntity> updateUser(@PathVariable Long id, @RequestBody UserEntity user) {
         UserEntity updatedUser = userService.updateUser(id, user);
         if (updatedUser != null) {
@@ -54,20 +57,36 @@ public class AdminController {
         }
     }*/
 
-    /*@DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        boolean deleted = userService.deleteUser(id);
-        if (deleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    /*@PutMapping("/{id}")
+    public ResponseEntity<Void> banUser(@PathVariable Long id) {
+        boolean banned = userService.banUser(id);
+        if (banned) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        @PutMapping("/{id}")
+    public ResponseEntity<Void> banUser(@PathVariable Long id) {
+        boolean banned = userService.banUser(id);
+        if (banned) {
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }*/
 
-    /*@GetMapping("/recipes")
+    @GetMapping("/users/recipes")
     public ResponseEntity<List<Recipe>> getAllRecipes() {
         List<Recipe> recipes = recipeService.getAllRecipes();
         return new ResponseEntity<>(recipes, HttpStatus.OK);
-    }*/
+    }
 
+    @GetMapping("/users/recipes/{id}")///////////
+    public ResponseEntity<List<Recipe>> getRecipesByUserId(@PathVariable Long id) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<UserEntity> user = userService.getUserByEmail(userDetails.getUsername());
+        List<Recipe> recipes = recipeService.findRecipesByOwnerId(id);
+        return new ResponseEntity<>(recipes, HttpStatus.OK);
+
+    }
 }

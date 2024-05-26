@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="removed /public from RecipeController">
+    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="Made findRecipesByOwnersID&#10;Changed /users/recipes to /profile/recipes">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/AdminService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/RecipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/RecipeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/repository/RecipeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/RecipeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/RecipeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/RecipeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -47,7 +45,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -101,7 +99,7 @@
   <component name="RunManager">
     <configuration name="CrudBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <envs>
-        <env name="MY_SQL_PASS" value="badhardsql!" />
+        <env name="MY_SQL_PASS" value="miwwosql!" />
       </envs>
       <module name="crud-backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.crud.CrudBackendApplication" />
@@ -113,6 +111,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+        <option value="jdk-20.0.2-azul-20.0.2-4caba194b151-eb49e076" />
         <option value="jdk-20.0.2-corretto-20.0.2.1-4caba194b151-5bc9ecd2" />
       </set>
     </attachedChunks>
@@ -142,6 +141,12 @@
       <workItem from="1716143458151" duration="13841000" />
       <workItem from="1716201337458" duration="14285000" />
       <workItem from="1716226522034" duration="22605000" />
+      <workItem from="1716575079765" duration="912000" />
+      <workItem from="1716577163550" duration="8540000" />
+      <workItem from="1716690250346" duration="3266000" />
+      <workItem from="1716733475503" duration="4601000" />
+      <workItem from="1716742386863" duration="20000" />
+      <workItem from="1716742418950" duration="1303000" />
     </task>
     <task id="LOCAL-00001" summary="User CRUD changed Recipe">
       <option name="closed" value="true" />
@@ -367,7 +372,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716495322543</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Made findRecipesByOwnersID&#10;Changed /users/recipes to /profile/recipes">
+      <option name="closed" value="true" />
+      <created>1716567131158</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1716567131158</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -401,7 +414,6 @@
       <path value="$PROJECT_DIR$/.." />
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Role access to endpoints fix" />
     <MESSAGE value="Added customdeniedaccess handler but it doesnt work for some reason...&#10;!!!!!!!!!!!!!!!!this commit is the start!" />
     <MESSAGE value="semi finished : entities, reps, (only created)services, controllers" />
     <MESSAGE value="оно хотябы запустилось" />
@@ -426,7 +438,8 @@
     <MESSAGE value="ShListIngredientQuantity realized" />
     <MESSAGE value="init" />
     <MESSAGE value="removed /public from RecipeController" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed /public from RecipeController" />
+    <MESSAGE value="Made findRecipesByOwnersID&#10;Changed /users/recipes to /profile/recipes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made findRecipesByOwnersID&#10;Changed /users/recipes to /profile/recipes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
