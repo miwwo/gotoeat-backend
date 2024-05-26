@@ -35,7 +35,7 @@ public class UserEntity {
     private List<Role> roles = new ArrayList<>();
 
     @Column(name = "is_enabled", nullable = false)
-    private boolean enabled;
+    private Boolean enabled;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

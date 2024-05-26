@@ -15,5 +15,7 @@ public interface UserService {
 
     UserEntity updateUser(Long id, UserEntity user);
 
-    boolean deleteUser(Long id);
+    Void banUser(Long id);
+
+
 }

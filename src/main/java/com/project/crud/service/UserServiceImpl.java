@@ -34,7 +34,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUser(Long id) {
-        return false;
+    public Void banUser(Long id) {
+        Optional<UserEntity> user = userRepository.findById(id);
+        Boolean userStatus = user.get().getEnabled();
+        user.get().setEnabled(!userStatus);
+        userRepository.save(user.get());
+        return null;
     }
 }

@@ -57,23 +57,12 @@ public class AdminController {
         }
     }*/
 
-    /*@PutMapping("/{id}")
+    @PutMapping("/users/ban/{id}")
     public ResponseEntity<Void> banUser(@PathVariable Long id) {
-        boolean banned = userService.banUser(id);
-        if (banned) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        @PutMapping("/{id}")
-    public ResponseEntity<Void> banUser(@PathVariable Long id) {
-        boolean banned = userService.banUser(id);
-        if (banned) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }*/
+        userService.banUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
 
     @GetMapping("/users/recipes")
     public ResponseEntity<List<Recipe>> getAllRecipes() {
