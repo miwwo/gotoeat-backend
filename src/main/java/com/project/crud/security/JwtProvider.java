@@ -34,7 +34,6 @@ public class JwtProvider {
         Date currentDate = new Date();
         Date expiryDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATION);
 
-        System.out.println(enabled);
         String token = Jwts.builder()
                 .setSubject(username)
                 .claim("roles", roles)

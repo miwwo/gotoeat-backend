@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="extra push">
+    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="Added account status to jwt (JwtProvider)&#10;Added status enabled to validateToken method(JwtProvider)&#10;Added ban user to AdminController&#10;Changed boolean -&gt; Boolean in UserEntity">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/entity/UserEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/security/JwtProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/security/JwtProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/AdminService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/service/interfaces/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +141,7 @@
       <workItem from="1716690250346" duration="3266000" />
       <workItem from="1716733475503" duration="4601000" />
       <workItem from="1716742386863" duration="20000" />
-      <workItem from="1716742418950" duration="6654000" />
+      <workItem from="1716742418950" duration="8488000" />
     </task>
     <task id="LOCAL-00001" summary="User CRUD changed Recipe">
       <option name="closed" value="true" />
@@ -397,7 +391,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716745092681</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Added account status to jwt (JwtProvider)&#10;Added status enabled to validateToken method(JwtProvider)&#10;Added ban user to AdminController&#10;Changed boolean -&gt; Boolean in UserEntity">
+      <option name="closed" value="true" />
+      <created>1716752067752</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1716752067752</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -431,7 +433,6 @@
       <path value="$PROJECT_DIR$/.." />
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="оно хотябы запустилось" />
     <MESSAGE value="это поражение........................" />
     <MESSAGE value="убрали columnDefinition, добавила user.setEnabled(true) в AuthController" />
     <MESSAGE value="SecurityConstants - JWT_EXPIRATION =  86400000;" />
@@ -456,7 +457,8 @@
     <MESSAGE value="Made findRecipesByOwnersID&#10;Changed /users/recipes to /profile/recipes" />
     <MESSAGE value="добавила методы получения всех рецептов, всех пользователей" />
     <MESSAGE value="extra push" />
-    <option name="LAST_COMMIT_MESSAGE" value="extra push" />
+    <MESSAGE value="Added account status to jwt (JwtProvider)&#10;Added status enabled to validateToken method(JwtProvider)&#10;Added ban user to AdminController&#10;Changed boolean -&gt; Boolean in UserEntity" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added account status to jwt (JwtProvider)&#10;Added status enabled to validateToken method(JwtProvider)&#10;Added ban user to AdminController&#10;Changed boolean -&gt; Boolean in UserEntity" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
