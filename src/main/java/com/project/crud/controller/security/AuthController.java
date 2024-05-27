@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -55,7 +54,7 @@ public class AuthController {
         user.setPassword(passwordEncoder.encode(signUpDTO.getPassword()));
         user.setEnabled(true);
 
-        Role roles = roleRepository.findByName("ADMIN").get();
+        Role roles = roleRepository.findByName("USER").get();
         user.setRoles(Collections.singletonList(roles));
 
         userRepository.save(user);
