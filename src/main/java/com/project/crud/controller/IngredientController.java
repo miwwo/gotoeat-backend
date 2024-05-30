@@ -20,11 +20,6 @@ public class IngredientController {
 
     private final IngredientService ingredientService;
 
-    @GetMapping
-    public ResponseEntity<List<Ingredient>> getAllIngredients() {
-        List<Ingredient> ingredients = ingredientService.getAllIngredients();
-        return new ResponseEntity<>(ingredients, HttpStatus.OK);
-    }
 
     @PostMapping
     public ResponseEntity<Ingredient> createIngredient(@RequestBody Ingredient ingredient) {

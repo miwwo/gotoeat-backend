@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="Added account status to jwt (JwtProvider)&#10;Added status enabled to validateToken method(JwtProvider)&#10;Added ban user to AdminController&#10;Changed boolean -&gt; Boolean in UserEntity">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e348652d-9a63-4584-9132-98d314dd65d0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e348652d-9a63-4584-9132-98d314dd65d0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_05_2024_11_13_pm__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_05_2024_11_13_pm__Changes_.xml" afterDir="false" />
+    <list default="true" id="fdabb1b5-542d-482c-bef9-57c25caacc2a" name="Changes" comment="Поменяла admin -&gt; user&#10;Убрала CrossOrigin над контроллером">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/security/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/crud/controller/security/AuthController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +143,8 @@
       <workItem from="1716733475503" duration="4601000" />
       <workItem from="1716742386863" duration="20000" />
       <workItem from="1716742418950" duration="8488000" />
-      <workItem from="1716843794789" duration="1187000" />
+      <workItem from="1716843794789" duration="3702000" />
+      <workItem from="1716951412587" duration="115000" />
     </task>
     <task id="LOCAL-00001" summary="User CRUD changed Recipe">
       <option name="closed" value="true" />
@@ -404,7 +402,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716752067752</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Поменяла admin -&gt; user&#10;Убрала CrossOrigin над контроллером">
+      <option name="closed" value="true" />
+      <created>1716845117299</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1716845117299</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -438,7 +444,6 @@
       <path value="$PROJECT_DIR$/.." />
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="это поражение........................" />
     <MESSAGE value="убрали columnDefinition, добавила user.setEnabled(true) в AuthController" />
     <MESSAGE value="SecurityConstants - JWT_EXPIRATION =  86400000;" />
     <MESSAGE value="Ingredient logic done" />
@@ -463,7 +468,8 @@
     <MESSAGE value="добавила методы получения всех рецептов, всех пользователей" />
     <MESSAGE value="extra push" />
     <MESSAGE value="Added account status to jwt (JwtProvider)&#10;Added status enabled to validateToken method(JwtProvider)&#10;Added ban user to AdminController&#10;Changed boolean -&gt; Boolean in UserEntity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added account status to jwt (JwtProvider)&#10;Added status enabled to validateToken method(JwtProvider)&#10;Added ban user to AdminController&#10;Changed boolean -&gt; Boolean in UserEntity" />
+    <MESSAGE value="Поменяла admin -&gt; user&#10;Убрала CrossOrigin над контроллером" />
+    <option name="LAST_COMMIT_MESSAGE" value="Поменяла admin -&gt; user&#10;Убрала CrossOrigin над контроллером" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

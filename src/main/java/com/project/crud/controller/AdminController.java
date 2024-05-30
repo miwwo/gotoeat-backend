@@ -47,7 +47,7 @@ public class AdminController {
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }*/
 
-    /*@PutMapping("/users/{id}")
+    @PutMapping("/users/{id}")
     public ResponseEntity<UserEntity> updateUser(@PathVariable Long id, @RequestBody UserEntity user) {
         UserEntity updatedUser = userService.updateUser(id, user);
         if (updatedUser != null) {
@@ -55,7 +55,7 @@ public class AdminController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }*/
+    }
 
     @PutMapping("/users/ban/{id}")
     public ResponseEntity<Void> banUser(@PathVariable Long id) {
